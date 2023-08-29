@@ -7,6 +7,7 @@ Welcome to Trendify, your one-stop destination for online shopping. Trendify is 
 - Browse and explore a diverse collection of products.
 - View detailed product descriptions, prices, and availability.
 - Add products to your cart for easy checkout.
+- Trendify offers a rich variety of products, organized into different categories. The `Category` model is at the heart of this organization, allowing products to be grouped logically for easy navigation. Each category has a unique identifier, a name, and a description that helps users understand its contents.
 - Place orders and track delivery status.
 - Enjoy secure and convenient online payments.
 
