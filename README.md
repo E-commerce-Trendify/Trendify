@@ -20,4 +20,4 @@ To get started with Trendify, follow these steps:
 4. Add products to your cart, place orders, and enjoy shopping!
 
 # ERD
-![]()
+![](https://github.com/E-commerce-Trendify/Trendify/blob/Sub-branch/ERD-Trendify.png)
