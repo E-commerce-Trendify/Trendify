@@ -1,0 +1,36 @@
+﻿@model Trendify.DTOs.CategoryDtoView
+
+@{
+    ViewData["Title"] = "AllCategoryProduct";
+}
+
+
+<div>
+    
+    <h4>@Model.Name</h4>
+ 
+    <label> @Model.Description</label>
+    <hr />
+
+    @foreach (var pro in Model.Products)
+    {
+        <ul>
+            <li>
+            <label>Name :</label>   @pro.Name
+            </li>
+            <li>
+                <label>Description :</label> @pro.Description
+            </li>
+            <li>
+                <label>Price :</label>
+                @pro.Price
+            </li>
+
+        </ul>
+
+    }
+
+</div>
+<div>
+</div>
+

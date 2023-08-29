@@ -37,6 +37,14 @@ namespace Trendify.Controllers
 
             return View(categoty);
         }
+
+        public async Task<IActionResult> AllCategoryProduct(int id)
+        {
+
+            var categoty = await _context.GetCategoryById(id);
+
+            return View(categoty);
+        }
         /*
         // GET: Categories/Create
         public IActionResult Create()
