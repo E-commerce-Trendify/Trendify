@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
+using Trendify.Interface;
+using Trendify.Services;
 
 namespace Trendify
 {
@@ -16,6 +18,14 @@ namespace Trendify
             builder.Services.AddDbContext<EcommerceDbContext>
                 (option=>option.UseSqlServer(Connection));
 
+            builder.Services.AddControllers().AddNewtonsoftJson(options =>
+options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+            builder.Services.AddControllers().AddNewtonsoftJson(
+               option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+               );
+
+            builder.Services.AddTransient<IProducts , ProductsService>();
 
             var app = builder.Build();
 
