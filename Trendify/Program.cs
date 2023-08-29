@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
+using Trendify.Interface;
+using Trendify.Services;
 
 namespace Trendify
 {
@@ -16,6 +18,7 @@ namespace Trendify
             builder.Services.AddDbContext<EcommerceDbContext>
                 (option=>option.UseSqlServer(Connection));
 
+            builder.Services.AddTransient<ICategory, CategoryService>();
 
             var app = builder.Build();
 
