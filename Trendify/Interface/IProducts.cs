@@ -20,4 +20,4 @@ namespace Trendify.Interface
         Task Delete(int id);
     }
 }
-}
+
