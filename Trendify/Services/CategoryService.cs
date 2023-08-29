@@ -43,7 +43,7 @@ namespace Trendify.Services
                 CategoryID = x.CategoryID,
                 Name = x.Name,
                 Description = x.Description,
-                Products = x.Products
+                Products = x.Products.ToList()
 
             }).ToListAsync();
             return category;
@@ -56,7 +56,7 @@ namespace Trendify.Services
                 CategoryID = x.CategoryID,
                 Name = x.Name,
                 Description = x.Description,
-                Products = x.Products
+                Products = x.Products.ToList()
 
             }).FirstOrDefaultAsync();
             return category;

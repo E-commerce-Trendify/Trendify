@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
+using Trendify.Interface;
 using Trendify.Models;
 
 namespace Trendify.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly EcommerceDbContext _context;
+        private readonly ICategory _context;
 
-        public CategoriesController(EcommerceDbContext context)
+        public CategoriesController(ICategory context)
         {
             _context = context;
         }
@@ -22,22 +23,21 @@ namespace Trendify.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return _context.Categories != null ? 
-                          View(await _context.Categories.ToListAsync()) :
-                          Problem("Entity set 'EcommerceDbContext.Categories'  is null.");
+            var categoty = await _context.GetAllCategories();
+
+            return View(categoty);
+                       
         }
 
         // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-        
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryID == id);
-       
 
-            return View(category);
+            var categoty = await _context.GetCategoryById(id);
+
+            return View(categoty);
         }
-
+        /*
         // GET: Categories/Create
         public IActionResult Create()
         {
@@ -150,6 +150,6 @@ namespace Trendify.Controllers
         private bool CategoryExists(int id)
         {
           return (_context.Categories?.Any(e => e.CategoryID == id)).GetValueOrDefault();
-        }
+        }*/
     }
 }
