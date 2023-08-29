@@ -11,10 +11,10 @@ namespace Trendify.Interface
         Task<List<CategoryDtoView>> GetAllCategories();
 
         // GET by ID
-        Task<CategoryDTO> GetCategoryById(int id);
+        Task<CategoryDtoView> GetCategoryById(int id);
 
         // UPDATE
-        Task Update(CategoryDTO category);
+        Task Update(int id, CategoryDTO category);
 
         // DELET by ID
         Task Delete(int id);
