@@ -1,4 +1,4 @@
-﻿@model Trendify.Models.Category
+﻿@model Trendify.DTOs.CategoryDtoView
 
 @{
     ViewData["Title"] = "Delete";
@@ -25,7 +25,7 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
+    <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="CategoryID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
