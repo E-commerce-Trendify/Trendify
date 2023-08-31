@@ -14,7 +14,7 @@ namespace Trendify
             string Connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
             builder.Services.AddDbContext<EcommerceDbContext>
                 (option=>option.UseSqlServer(Connection));
 
