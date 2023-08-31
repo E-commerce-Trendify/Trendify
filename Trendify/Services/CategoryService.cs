@@ -16,14 +16,14 @@ namespace Trendify.Services
 
         public async Task Create(CategoryDTO category)
         {
-            Category newTrip = new Category()
+            Category category1 = new Category()
             {
                 Name = category.Name,
                 Description = category.Description
             
             };
 
-            _context.Add(category);
+            _context.Add(category1);
             await _context.SaveChangesAsync();
         }
 

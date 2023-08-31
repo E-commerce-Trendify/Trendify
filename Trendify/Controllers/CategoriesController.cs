@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
+using Trendify.DTOs;
 using Trendify.Interface;
 using Trendify.Models;
 
@@ -45,119 +46,83 @@ namespace Trendify.Controllers
 
             return View(categoty);
         }
-        /*
+        
         // GET: Categories/Create
         public IActionResult Create()
         {
             return View();
         }
+        
 
+        
         // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryID,Name,Description")] Category category)
+        
+        public async Task<IActionResult> Create(CategoryDTO category)
         {
+
+
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
             
-            
-                _context.Add(category);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            
-            return View(category);
+            await _context.Create(category);
+            return RedirectToAction("Index");
         }
 
-        // GET: Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Categories == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
-        }
-
+        
+        
         // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryID,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(int id, CategoryDTO category)
         {
-            if (id != category.CategoryID)
-            {
-                return NotFound();
-            }
-
-          
-                try
-                {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.CategoryID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             
-            return View(category);
+
+
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+            await _context.Update(id, category);
+            return RedirectToAction("Index");
         }
 
-        // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.Categories == null)
+            var prodcut = await _context.GetCategoryById(id);
+            var Product = new CategoryDTO()
             {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryID == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
+               
+                Name = prodcut.Name,
+                Description = prodcut.Description,
+                
+            };
+            return View(Product);
+        }
+       
+        // GET: Categories/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            var category = await _context.GetCategoryById(id);
+           
             return View(category);
         }
 
         // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        
+        public async Task<IActionResult> Delete(int id,string category)
         {
-            if (_context.Categories == null)
-            {
-                return Problem("Entity set 'EcommerceDbContext.Categories'  is null.");
-            }
-            var category = await _context.Categories.FindAsync(id);
-            if (category != null)
-            {
-                _context.Categories.Remove(category);
-            }
+            await _context.Delete(id);
+            return RedirectToAction("Index");
             
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
-        {
-          return (_context.Categories?.Any(e => e.CategoryID == id)).GetValueOrDefault();
-        }*/
+        
     }
 }
