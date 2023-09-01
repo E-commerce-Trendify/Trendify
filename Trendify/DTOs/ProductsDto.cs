@@ -4,6 +4,8 @@ namespace Trendify.DTOs
 {
     public class ProductsDto
     {
+
+        public int ProductId { get; set; }
        
         [Required]
         public string Name { get; set; }

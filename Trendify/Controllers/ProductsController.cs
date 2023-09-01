@@ -39,7 +39,8 @@ namespace Trendify.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            return View();
+            ProductsDto productsDto = new ProductsDto();
+            return View(productsDto);
         }
 
         // POST: Products/Create
@@ -64,6 +65,7 @@ namespace Trendify.Controllers
             var prodcut = await _context.GetProductById(id);
             var Product = new ProductsDto()
             {
+                ProductId = prodcut.ProductID,
                 CategoryID = prodcut.CategoryID,
                 StockQuantity = prodcut.StockQuantity,
                 Name = prodcut.Name,
