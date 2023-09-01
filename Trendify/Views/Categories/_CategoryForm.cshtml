@@ -1,4 +1,4 @@
-﻿@model Trendify.Models.Category
+﻿@model Trendify.DTOs.CategoryDTO
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="form-group">
@@ -11,20 +11,16 @@
     <input asp-for="@Model.Description" class="form-control" />
     <span asp-validation-for="Description" class="text-danger"></span>
 </div>
-@if (Model.CategoryID > 0)
-{
-    <input type="hidden" name="Id" value="@Model.CategoryID" />
-}
-@if (Model.CategoryID > 0) 
-{ 
-<div class="form-group">
-    <input type="submit" value="update" class="btn btn-primary" />
-</div>
-}
 
-else
+@if(Model.CategoryID > 0)
 {
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Update" class="btn btn-primary" />
     </div>
+}
+else
+{
+<div class="form-group">
+    <input type="submit" value="Create" class="btn btn-primary" />
+</div>
 }

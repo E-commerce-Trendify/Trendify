@@ -50,7 +50,8 @@ namespace Trendify.Controllers
         // GET: Categories/Create
         public IActionResult Create()
         {
-            return View();
+            CategoryDTO categoryDTO = new CategoryDTO();
+            return View(categoryDTO);
         }
         
 
@@ -62,7 +63,6 @@ namespace Trendify.Controllers
         
         public async Task<IActionResult> Create(CategoryDTO category)
         {
-
 
             if (!ModelState.IsValid)
             {
@@ -81,8 +81,6 @@ namespace Trendify.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, CategoryDTO category)
         {
-            
-
 
             if (!ModelState.IsValid)
             {
@@ -94,15 +92,15 @@ namespace Trendify.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var prodcut = await _context.GetCategoryById(id);
-            var Product = new CategoryDTO()
+            var category = await _context.GetCategoryById(id);
+            var Category = new CategoryDTO()
             {
-               
-                Name = prodcut.Name,
-                Description = prodcut.Description,
+                CategoryID = category.CategoryID,
+                Name = category.Name,
+                Description = category.Description,
                 
             };
-            return View(Product);
+            return View(Category);
         }
        
         // GET: Categories/Delete/5
