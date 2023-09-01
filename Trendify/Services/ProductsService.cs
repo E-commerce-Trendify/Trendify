@@ -77,6 +77,7 @@ namespace Trendify.Services
             productsUpdate.Name = products.Name;
             productsUpdate.Description = products.Description;
             productsUpdate.Price = products.Price;
+            productsUpdate.StockQuantity = products.StockQuantity;
             productsUpdate.CategoryID = products.CategoryID;
               
                 await _context.SaveChangesAsync();
