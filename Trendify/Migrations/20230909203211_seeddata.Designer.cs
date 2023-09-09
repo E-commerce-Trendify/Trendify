@@ -12,8 +12,8 @@ using Trendify.Data;
 namespace Trendify.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20230908135518_UserAuth")]
-    partial class UserAuth
+    [Migration("20230909203211_seeddata")]
+    partial class seeddata
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,15 @@ namespace Trendify.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "admin",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Admin",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -258,104 +267,6 @@ namespace Trendify.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Trendify.Models.Order", b =>
-                {
-                    b.Property<int>("OrderID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ShippingAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("OrderID");
-
-                    b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderID = 1,
-                            CustomerName = "John Doe",
-                            OrderDate = new DateTime(2023, 9, 8, 16, 55, 17, 860, DateTimeKind.Local).AddTicks(8904),
-                            ShippingAddress = "123 Main St",
-                            TotalAmount = 150.00m
-                        },
-                        new
-                        {
-                            OrderID = 2,
-                            CustomerName = "Jane Smith",
-                            OrderDate = new DateTime(2023, 9, 8, 16, 55, 17, 860, DateTimeKind.Local).AddTicks(8931),
-                            ShippingAddress = "456 Elm St",
-                            TotalAmount = 250.00m
-                        });
-                });
-
-            modelBuilder.Entity("Trendify.Models.OrderItem", b =>
-                {
-                    b.Property<int>("OrderItemID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemID"));
-
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("OrderItemID");
-
-                    b.HasIndex("OrderID");
-
-                    b.ToTable("OrdersItems");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderItemID = 1,
-                            OrderID = 1,
-                            ProductID = 1,
-                            Quantity = 2,
-                            UnitPrice = 50.00m
-                        },
-                        new
-                        {
-                            OrderItemID = 2,
-                            OrderID = 1,
-                            ProductID = 2,
-                            Quantity = 1,
-                            UnitPrice = 100.00m
-                        },
-                        new
-                        {
-                            OrderItemID = 3,
-                            OrderID = 2,
-                            ProductID = 3,
-                            Quantity = 3,
-                            UnitPrice = 50.00m
-                        });
-                });
-
             modelBuilder.Entity("Trendify.Models.Product", b =>
                 {
                     b.Property<int>("ProductID")
@@ -459,17 +370,6 @@ namespace Trendify.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Trendify.Models.OrderItem", b =>
-                {
-                    b.HasOne("Trendify.Models.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Trendify.Models.Product", b =>
                 {
                     b.HasOne("Trendify.Models.Category", "Category")
@@ -484,11 +384,6 @@ namespace Trendify.Migrations
             modelBuilder.Entity("Trendify.Models.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Trendify.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

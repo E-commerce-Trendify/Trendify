@@ -28,14 +28,14 @@ namespace Trendify.Controllers
 
 
             data.Roles = new List<string>() { "Admin" };
-            var user = userService.Register(data, this.ModelState);
+            var user = await userService.Register(data, this.ModelState);
 
             if (!ModelState.IsValid)
             {
-                return View(user);
+                return Redirect("/");
             }
 
-            return RedirectToAction("Index", "Home");
+            return View();
         }
 
         [HttpPost]
@@ -51,7 +51,7 @@ namespace Trendify.Controllers
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index", "Home");
+            return Redirect("/");
         }
 
     }
