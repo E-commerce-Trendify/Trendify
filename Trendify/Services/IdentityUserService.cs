@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Security.Claims;
 using Trendify.DTOs;
 using Trendify.Interface;
 using Trendify.Models.Entites;
@@ -29,7 +30,6 @@ namespace Trendify.Services
 
                 return new UserDto()
                 {
-                    
                     Username = user.UserName,
                     Roles = await _userManager.GetRolesAsync(user)
                 };
@@ -38,14 +38,19 @@ namespace Trendify.Services
             return null;
         }
 
-        public Task<UserDto> GetUser(string username)
+        public async Task<UserDto> GetUser(ClaimsPrincipal principal)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.GetUserAsync(principal);
+            return new UserDto
+            {
+                Id = user.Id,
+                Username = user.UserName,
+                Roles = await _userManager.GetRolesAsync(user)
+            };
         }
-
-        public async Task<UserDto> Register(RegisterUserDto data, ModelStateDictionary modelState)
+            public async Task<UserDto> Register(RegisterUserDto data, ModelStateDictionary modelState)
         {
-            var user = new AuthUser()
+            var user = new AuthUser
             {
                 UserName = data.Username,
                 Email = data.Email,
@@ -60,7 +65,7 @@ namespace Trendify.Services
 
                 return new UserDto()
                 {
-                   
+                   Id=user.Id,
                     Username = user.UserName,
                     Roles = await _userManager.GetRolesAsync(user),
                 };

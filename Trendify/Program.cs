@@ -26,10 +26,6 @@ namespace Trendify
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<EcommerceDbContext>();
 
-            builder.Services.AddTransient<IUserService, IdentityUserService>();
-
-            builder.Services.AddAuthentication();
-            builder.Services.AddAuthorization();
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
@@ -43,9 +39,13 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
             builder.Services.AddControllers().AddNewtonsoftJson(
                option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                );
+            builder.Services.AddTransient<IUserService, IdentityUserService>();
 
             builder.Services.AddTransient<IProducts, ProductsService>();
             builder.Services.AddTransient<ICategory, CategoryService>();
+
+            builder.Services.AddAuthentication();
+            builder.Services.AddAuthorization();
 
 
             var app = builder.Build();

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trendify.Migrations
 {
     /// <inheritdoc />
-    public partial class UserAuth : Migration
+    public partial class Identityy : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,19 +53,17 @@ namespace Trendify.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Categories",
                 columns: table => new
                 {
-                    OrderID = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ShippingAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OrderID);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryID);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,44 +173,53 @@ namespace Trendify.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrdersItems",
+                name: "Products",
                 columns: table => new
                 {
-                    OrderItemID = table.Column<int>(type: "int", nullable: false)
+                    ProductID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductID = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    OrderID = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    StockQuantity = table.Column<int>(type: "int", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrdersItems", x => x.OrderItemID);
+                    table.PrimaryKey("PK_Products", x => x.ProductID);
                     table.ForeignKey(
-                        name: "FK_OrdersItems_Orders_OrderID",
-                        column: x => x.OrderID,
-                        principalTable: "Orders",
-                        principalColumn: "OrderID",
+                        name: "FK_Products_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "OrderID", "CustomerName", "OrderDate", "ShippingAddress", "TotalAmount" },
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "John Doe", new DateTime(2023, 9, 8, 16, 55, 17, 860, DateTimeKind.Local).AddTicks(8904), "123 Main St", 150.00m },
-                    { 2, "Jane Smith", new DateTime(2023, 9, 8, 16, 55, 17, 860, DateTimeKind.Local).AddTicks(8931), "456 Elm St", 250.00m }
+                    { "admin", null, "Admin", null },
+                    { "guest", null, "Guest", null }
                 });
 
             migrationBuilder.InsertData(
-                table: "OrdersItems",
-                columns: new[] { "OrderItemID", "OrderID", "ProductID", "Quantity", "UnitPrice" },
+                table: "Categories",
+                columns: new[] { "CategoryID", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 2, 50.00m },
-                    { 2, 1, 2, 1, 100.00m },
-                    { 3, 2, 3, 3, 50.00m }
+                    { 1, "Electronic gadgets and devices", "Electronics" },
+                    { 2, "Fashionable clothing items", "Clothing" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductID", "CategoryID", "Description", "Name", "Price", "StockQuantity" },
+                values: new object[,]
+                {
+                    { 1, 1, "High-performance laptop", "Laptop", 999.99m, 50 },
+                    { 2, 1, "Latest smartphone model", "Smartphone", 699.99m, 100 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -255,9 +262,9 @@ namespace Trendify.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrdersItems_OrderID",
-                table: "OrdersItems",
-                column: "OrderID");
+                name: "IX_Products_CategoryID",
+                table: "Products",
+                column: "CategoryID");
         }
 
         /// <inheritdoc />
@@ -279,7 +286,7 @@ namespace Trendify.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "OrdersItems");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -288,7 +295,7 @@ namespace Trendify.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Categories");
         }
     }
 }
