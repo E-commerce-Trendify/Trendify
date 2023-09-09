@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Trendify.Models;
+using Trendify.Models.Entites;
 
 namespace Trendify.Data
 {
-    public class EcommerceDbContext : DbContext
+    public class EcommerceDbContext : IdentityDbContext<AuthUser>
     {
 
 
@@ -38,7 +41,14 @@ namespace Trendify.Data
                 new OrderItem { OrderItemID = 2, OrderID = 1, ProductID = 2, Quantity = 1, UnitPrice = 100.00m },
                 new OrderItem { OrderItemID = 3, OrderID = 2, ProductID = 3, Quantity = 3, UnitPrice = 50.00m }
             // ... add more order items here ...
+
             );
+
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+               new IdentityRole { Id = "admin", Name = "Admin" },
+               new IdentityRole { Id = "guest", Name = "Guest" }
+               );
         }
 
 
