@@ -29,7 +29,7 @@ namespace Trendify.Services
 
                 return new UserDto()
                 {
-                    Id = user.Id,
+                    
                     Username = user.UserName,
                     Roles = await _userManager.GetRolesAsync(user)
                 };
@@ -60,10 +60,18 @@ namespace Trendify.Services
 
                 return new UserDto()
                 {
-                    Id = user.Id,
+                   
                     Username = user.UserName,
                     Roles = await _userManager.GetRolesAsync(user),
                 };
+                /*IList<string> Roles = new List<string>();
+                Roles.Add("Admin");
+                await _userManager.AddToRolesAsync(user, Roles);
+                return new UserDto
+                {
+                    Username = user.UserName,
+                    Roles = await _userManager.GetRolesAsync(user)
+                };*/
             }
 
             foreach (var error in result.Errors) 

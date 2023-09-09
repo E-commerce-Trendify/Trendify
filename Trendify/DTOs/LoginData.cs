@@ -1,4 +1,6 @@
-﻿namespace Trendify.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Trendify.DTOs
 {
     public class LoginData
     {
