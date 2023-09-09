@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trendify.Data;
 
@@ -11,9 +12,11 @@ using Trendify.Data;
 namespace Trendify.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    partial class EcommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230908135518_UserAuth")]
+    partial class UserAuth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,18 +50,6 @@ namespace Trendify.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "admin",
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = "guest",
-                            Name = "Guest"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -298,7 +289,7 @@ namespace Trendify.Migrations
                         {
                             OrderID = 1,
                             CustomerName = "John Doe",
-                            OrderDate = new DateTime(2023, 9, 8, 17, 4, 37, 911, DateTimeKind.Local).AddTicks(1504),
+                            OrderDate = new DateTime(2023, 9, 8, 16, 55, 17, 860, DateTimeKind.Local).AddTicks(8904),
                             ShippingAddress = "123 Main St",
                             TotalAmount = 150.00m
                         },
@@ -306,7 +297,7 @@ namespace Trendify.Migrations
                         {
                             OrderID = 2,
                             CustomerName = "Jane Smith",
-                            OrderDate = new DateTime(2023, 9, 8, 17, 4, 37, 911, DateTimeKind.Local).AddTicks(1519),
+                            OrderDate = new DateTime(2023, 9, 8, 16, 55, 17, 860, DateTimeKind.Local).AddTicks(8931),
                             ShippingAddress = "456 Elm St",
                             TotalAmount = 250.00m
                         });

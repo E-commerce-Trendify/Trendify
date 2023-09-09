@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
 using Trendify.Interface;
+using Trendify.Models.Entites;
 using Trendify.Services;
 
 namespace Trendify
@@ -19,6 +21,21 @@ namespace Trendify
                 (option=>option.UseSqlServer(Connection));
 
 
+            builder.Services.AddIdentity<AuthUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<EcommerceDbContext>();
+
+            builder.Services.AddTransient<IUserService, IdentityUserService>();
+
+            builder.Services.AddAuthentication();
+            builder.Services.AddAuthorization();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.LoginPath = "/Auth/Index";
+            });
 
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -46,6 +63,7 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
