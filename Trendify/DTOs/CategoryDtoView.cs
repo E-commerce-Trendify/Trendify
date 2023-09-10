@@ -8,6 +8,9 @@ namespace Trendify.DTOs
         public string Name { get; set; }
         public string Description { get; set; }
 
+        public int NumberProduct;
+
+
         public IEnumerable<Product> Products { get; set; }
     }
 }

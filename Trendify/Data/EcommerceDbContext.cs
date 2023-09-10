@@ -30,6 +30,7 @@ namespace Trendify.Data
                 new Product { ProductID = 2, Name = "Smartphone", Description = "Latest smartphone model", Price = 699.99m, StockQuantity = 100, CategoryID = 1 }
             );
 
+
             //        modelBuilder.Entity<Order>().HasData(
             //    new Order { OrderID = 1, CustomerName = "John Doe", ShippingAddress = "123 Main St", OrderDate = DateTime.Now, TotalAmount = 150.00m },
             //    new Order { OrderID = 2, CustomerName = "Jane Smith", ShippingAddress = "456 Elm St", OrderDate = DateTime.Now, TotalAmount = 250.00m }
@@ -48,6 +49,7 @@ namespace Trendify.Data
                new IdentityRole { Id = "admin", Name = "Admin", NormalizedName = "ADMINISTRATOR", ConcurrencyStamp = Guid.Empty.ToString() }
 
              );
+
         }
 
 
@@ -55,6 +57,8 @@ namespace Trendify.Data
         public DbSet<Product> Products { get; set; }
 
       //  public DbSet<OrderItem> OrdersItems { get; set; }
+
      //   public DbSet<Order> Orders { get; set; }
+
     }
 }
