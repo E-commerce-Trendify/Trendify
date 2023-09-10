@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trendify.Data;
 
@@ -11,9 +12,11 @@ using Trendify.Data;
 namespace Trendify.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    partial class EcommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230909195958_Identityy")]
+    partial class Identityy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,9 +55,12 @@ namespace Trendify.Migrations
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
-                            Name = "Admin",
-                            NormalizedName = "ADMINISTRATOR"
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = "guest",
+                            Name = "Guest"
                         });
                 });
 
