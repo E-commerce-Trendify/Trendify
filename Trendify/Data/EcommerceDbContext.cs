@@ -20,14 +20,14 @@ namespace Trendify.Data
 
             // Seed data for categories
             modelBuilder.Entity<Category>().HasData(
-                new Category { CategoryID = 1, Name = "Electronics", Description = "Electronic gadgets and devices" },
-                new Category { CategoryID = 2, Name = "Clothing", Description = "Fashionable clothing items" }
+                new Category { CategoryID = 1, Name = "Electronics", Description = "Electronic gadgets and devices",ImageUrl="dsds" },
+                new Category { CategoryID = 2, Name = "Clothing", Description = "Fashionable clothing items", ImageUrl = "sss" }
             );
 
             // Seed data for products
             modelBuilder.Entity<Product>().HasData(
-                new Product { ProductID = 1, Name = "Laptop", Description = "High-performance laptop", Price = 999.99m, StockQuantity = 50, CategoryID = 1 },
-                new Product { ProductID = 2, Name = "Smartphone", Description = "Latest smartphone model", Price = 699.99m, StockQuantity = 100, CategoryID = 1 }
+                new Product { ProductID = 1, Name = "Laptop", Description = "High-performance laptop", Price = 999.99m, StockQuantity = 50, CategoryID = 1, ImageUrl = "sss" },
+                new Product { ProductID = 2, Name = "Smartphone", Description = "Latest smartphone model", Price = 699.99m, StockQuantity = 100, CategoryID = 1,ImageUrl = "sss" }
             );
 
 

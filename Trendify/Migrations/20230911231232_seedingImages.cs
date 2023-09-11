@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trendify.Migrations
 {
     /// <inheritdoc />
-    public partial class Identityy : Migration
+    public partial class seedingImages : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,8 @@ namespace Trendify.Migrations
                     CategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -182,6 +183,7 @@ namespace Trendify.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -200,26 +202,26 @@ namespace Trendify.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "admin", null, "Admin", null },
-                    { "guest", null, "Guest", null }
+                    { "admin", "00000000-0000-0000-0000-000000000000", "Admin", "ADMIN" },
+                    { "editor", "00000000-0000-0000-0000-000000000000", "Editor", "EDITOR" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "CategoryID", "Description", "Name" },
+                columns: new[] { "CategoryID", "Description", "ImageUrl", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Electronic gadgets and devices", "Electronics" },
-                    { 2, "Fashionable clothing items", "Clothing" }
+                    { 1, "Electronic gadgets and devices", "dsds", "Electronics" },
+                    { 2, "Fashionable clothing items", "sss", "Clothing" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductID", "CategoryID", "Description", "Name", "Price", "StockQuantity" },
+                columns: new[] { "ProductID", "CategoryID", "Description", "ImageUrl", "Name", "Price", "StockQuantity" },
                 values: new object[,]
                 {
-                    { 1, 1, "High-performance laptop", "Laptop", 999.99m, 50 },
-                    { 2, 1, "Latest smartphone model", "Smartphone", 699.99m, 100 }
+                    { 1, 1, "High-performance laptop", "sss", "Laptop", 999.99m, 50 },
+                    { 2, 1, "Latest smartphone model", "sss", "Smartphone", 699.99m, 100 }
                 });
 
             migrationBuilder.CreateIndex(

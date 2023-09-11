@@ -5,7 +5,9 @@ namespace Trendify.Interface
     public interface ICategory
     {
         // Create
-        Task Create(CategoryDTO category);
+        Task Create(CategoryDTO category, string imageUrl);
+        Task<string> UploadFile(IFormFile file);
+
 
         // GET All
         Task<List<CategoryDtoView>> GetAllCategories();

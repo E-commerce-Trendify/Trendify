@@ -55,6 +55,13 @@ namespace Trendify.Migrations
                             ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "editor",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Editor",
+                            NormalizedName = "EDITOR"
                         });
                 });
 
@@ -176,25 +183,30 @@ namespace Trendify.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
                             CategoryID = 1,
                             Description = "Electronic gadgets and devices",
+                            ImageUrl = "dsds",
                             Name = "Electronics"
                         },
                         new
                         {
                             CategoryID = 2,
                             Description = "Fashionable clothing items",
+                            ImageUrl = "sss",
                             Name = "Clothing"
                         });
                 });
@@ -279,6 +291,9 @@ namespace Trendify.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -293,7 +308,7 @@ namespace Trendify.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
 
                     b.HasData(
                         new
@@ -301,6 +316,7 @@ namespace Trendify.Migrations
                             ProductID = 1,
                             CategoryID = 1,
                             Description = "High-performance laptop",
+                            ImageUrl = "sss",
                             Name = "Laptop",
                             Price = 999.99m,
                             StockQuantity = 50
@@ -310,6 +326,7 @@ namespace Trendify.Migrations
                             ProductID = 2,
                             CategoryID = 1,
                             Description = "Latest smartphone model",
+                            ImageUrl = "sss",
                             Name = "Smartphone",
                             Price = 699.99m,
                             StockQuantity = 100

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs;
+using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
 using Trendify.DTOs;
 using Trendify.Interface;
@@ -9,18 +11,41 @@ namespace Trendify.Services
     public class CategoryService : ICategory
     {
         private readonly EcommerceDbContext _context;
-        public CategoryService(EcommerceDbContext context)
+        private readonly IConfiguration _configuration;
+
+        public CategoryService(EcommerceDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
-        public async Task Create(CategoryDTO category)
+        public async Task<string> UploadFile(IFormFile file)
         {
+
+            BlobContainerClient blobcontener = new BlobContainerClient(_configuration.GetConnectionString("StorageAuzer"), "images");
+            await blobcontener.CreateIfNotExistsAsync();
+            BlobClient blobClient = blobcontener.GetBlobClient(file.FileName);
+            using var fileStream = file.OpenReadStream();
+            BlobUploadOptions blobOption = new BlobUploadOptions()
+            {
+                HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
+            };
+            if (!blobClient.Exists())
+            {
+                await blobClient.UploadAsync(fileStream, blobOption);
+            }
+            return blobClient.Uri.ToString();
+        }
+
+        public async Task Create(CategoryDTO category,string imageUrl)
+        {
+
             Category category1 = new Category()
             {
                 Name = category.Name,
-                Description = category.Description
-            
+                Description = category.Description,
+                ImageUrl = imageUrl
+              
             };
 
             _context.Add(category1);
@@ -45,6 +70,7 @@ namespace Trendify.Services
                 Description = x.Description,
                 Products = x.Products.ToList(),
                 NumberProduct = x.NumberProduct,
+                ImageURL= x.ImageUrl
             }).ToListAsync();
             return category;
            }
@@ -58,6 +84,7 @@ namespace Trendify.Services
                 Description = x.Description,
                 Products = x.Products.ToList(),
                 NumberProduct = x.NumberProduct,
+                ImageURL = x.ImageUrl
 
             }).FirstOrDefaultAsync();
             return category;

@@ -5,7 +5,9 @@ namespace Trendify.Interface
     public interface IProducts
     {
         // Create
-        Task Create(ProductsDto products);
+        Task Create(ProductsDto products,string imageurl);
+        Task<string> UploadFile(IFormFile file);
+
 
         // GET All
         Task<List<ProductsDtoView>> GetAllProducts();
