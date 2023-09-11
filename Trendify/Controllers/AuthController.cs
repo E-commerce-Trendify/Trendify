@@ -1,16 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Trendify.DTOs;
 using Trendify.Interface;
+using Trendify.Models.Entites;
 
 namespace Trendify.Controllers
 {
     public class AuthController : Controller
     {
         private IUserService userService;
+        private SignInManager<AuthUser> _signInManager;
 
-        public AuthController(IUserService service)
+        public AuthController(IUserService service, SignInManager<AuthUser> signInManager)
         {
             userService = service;
+            _signInManager = signInManager;       
         }
         public IActionResult Index()
         {
@@ -25,17 +29,16 @@ namespace Trendify.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Signup(RegisterUserDto data)
         {
+         //   data.Roles = new List<string>() { "Admin" };
 
-
-            data.Roles = new List<string>() { "Admin" };
             var user = await userService.Register(data, this.ModelState);
 
             if (!ModelState.IsValid)
             {
-                return Redirect("/");
+                return View();
             }
 
-            return View();
+            return Redirect("/");
         }
 
         [HttpPost]
@@ -51,6 +54,11 @@ namespace Trendify.Controllers
                 return RedirectToAction("Index");
             }
 
+            return Redirect("/");
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
             return Redirect("/");
         }
 

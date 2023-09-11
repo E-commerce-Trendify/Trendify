@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -46,8 +47,9 @@ namespace Trendify.Controllers
 
             return View(categoty);
         }
-        
+
         // GET: Categories/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             CategoryDTO categoryDTO = new CategoryDTO();
@@ -59,8 +61,8 @@ namespace Trendify.Controllers
         // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        
         public async Task<IActionResult> Create(CategoryDTO category)
         {
 
@@ -89,7 +91,7 @@ namespace Trendify.Controllers
             await _context.Update(id, category);
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _context.GetCategoryById(id);
@@ -102,7 +104,7 @@ namespace Trendify.Controllers
             };
             return View(Category);
         }
-       
+        [Authorize(Roles = "Admin")]
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int id)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,7 @@ namespace Trendify.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ProductsDto productsDto = new ProductsDto();
@@ -60,6 +62,7 @@ namespace Trendify.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int id)
         {
             var prodcut = await _context.GetProductById(id);
@@ -93,6 +96,7 @@ namespace Trendify.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var category = await _context.GetProductById(id);
