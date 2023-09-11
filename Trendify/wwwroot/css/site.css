@@ -25,3 +25,7 @@ body {
     padding:5px;
     width:100%;
 }
+.flex-column{
+    display:flex;
+    flex-direction:column;
+}

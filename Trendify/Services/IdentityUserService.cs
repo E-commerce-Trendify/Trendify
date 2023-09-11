@@ -61,6 +61,7 @@ namespace Trendify.Services
 
             if (result.Succeeded)
             {
+
                 await _userManager.AddToRolesAsync(user, data.Roles);
 
                 return new UserDto()

@@ -1,6 +1,6 @@
 ﻿﻿
 
-<form class="form-inline" method="post" action="/Auth/Signup">
+<form class="form-inline" method="post" asp-action="Signup">
     <div class="form-group">
         <label class="sr-only" for="username">username:</label>
         <input type="text" name="username" class="form-control" id="username">
@@ -17,8 +17,15 @@
         <label class="sr-only" for="phonenumber">Phone number:</label>
         <input type="text" name="phonenumber" class="form-control" id="phonenumber">
     </div>
+    <div class="form-group">
+        <label for="roles">Roles:</label>
+        <select name="roles" class="form-control" id="roles">
+            <option value="Editor">Editor</option>
+            <option value="Admin">Admin</option>
+        </select>
+    </div>
 
     <button type="submit" class="btn btn-primary">Sign up</button>
+    <div asp-validation-summary="All"></div>
 </form>
 
-@* <div asp-validation-summary="All"></div> *@
