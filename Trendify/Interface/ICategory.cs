@@ -16,7 +16,7 @@ namespace Trendify.Interface
         Task<CategoryDtoView> GetCategoryById(int id);
 
         // UPDATE
-        Task Update(int id, CategoryDTO category);
+        Task Update(int id, CategoryDTO category, string imageUrl);
 
         // DELET by ID
         Task Delete(int id);
