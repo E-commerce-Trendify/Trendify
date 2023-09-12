@@ -96,7 +96,7 @@ namespace Trendify.Services
             return products;
         }
 
-        public async Task Update(ProductsDto products , int id)
+        public async Task Update(ProductsDto products , int id, string imageurl)
         {
 
             var productsUpdate = await _context.Products.Where(p => p.ProductID == id).FirstOrDefaultAsync();
@@ -106,8 +106,9 @@ namespace Trendify.Services
             productsUpdate.Price = products.Price;
             productsUpdate.StockQuantity = products.StockQuantity;
             productsUpdate.CategoryID = products.CategoryID;
-              
-                await _context.SaveChangesAsync();
+            productsUpdate.ImageUrl = imageurl;
+            
+            await _context.SaveChangesAsync();
             
         }
     }

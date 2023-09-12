@@ -12,7 +12,7 @@ using Trendify.Data;
 namespace Trendify.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20230911231232_seedingImages")]
+    [Migration("20230912084626_seedingImages")]
     partial class seedingImages
     {
         /// <inheritdoc />

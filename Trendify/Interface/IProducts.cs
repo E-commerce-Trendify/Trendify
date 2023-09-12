@@ -16,7 +16,7 @@ namespace Trendify.Interface
         Task<ProductsDtoView> GetProductById(int id);
 
         // UPDATE
-        Task Update(ProductsDto products , int id);
+        Task Update(ProductsDto products , int id, string imageurl);
 
         // DELET by ID
         Task Delete(int id);
