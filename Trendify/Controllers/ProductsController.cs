@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
@@ -49,13 +50,14 @@ namespace Trendify.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create( ProductsDto product)
+        public async Task<IActionResult> Create( ProductsDto product , IFormFile file)
         {
-            if(!ModelState.IsValid)
+            var imagesURl = await _context.UploadFile(file);
+            if (!ModelState.IsValid)
             {
                 return View(product);
             }
-            await _context.Create(product);
+            await _context.Create(product,imagesURl);
             return RedirectToAction("Index");
 
 
@@ -74,6 +76,7 @@ namespace Trendify.Controllers
                 Name = prodcut.Name,
                 Description = prodcut.Description,  
                 Price  = prodcut.Price,
+                ImageURL=prodcut.ImageUrl
             };
 
             return View(Product);
@@ -83,14 +86,16 @@ namespace Trendify.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, ProductsDto product)
-        {            
-            if (!ModelState.IsValid)
-            {
-                return View(product);
-            }
+        public async Task<IActionResult> Edit(int id, ProductsDto product,IFormFile file)
+        {
+            var imagesURl = await _context.UploadFile(file);
 
-            await _context.Update(product, id);
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(product);
+            //}
+
+            await _context.Update(product, id,imagesURl);
             return RedirectToAction("Index");
 
         }

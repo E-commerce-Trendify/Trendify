@@ -18,5 +18,7 @@ namespace Trendify.DTOs
         [Required]
         public int CategoryID { get; set; }
 
+        public string? ImageURL { get; set; }
+
     }
 }

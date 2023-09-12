@@ -5,7 +5,9 @@ namespace Trendify.Interface
     public interface IProducts
     {
         // Create
-        Task Create(ProductsDto products);
+        Task Create(ProductsDto products,string imageurl);
+        Task<string> UploadFile(IFormFile file);
+
 
         // GET All
         Task<List<ProductsDtoView>> GetAllProducts();
@@ -14,7 +16,7 @@ namespace Trendify.Interface
         Task<ProductsDtoView> GetProductById(int id);
 
         // UPDATE
-        Task Update(ProductsDto products , int id);
+        Task Update(ProductsDto products , int id, string imageurl);
 
         // DELET by ID
         Task Delete(int id);

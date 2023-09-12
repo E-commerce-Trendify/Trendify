@@ -63,15 +63,16 @@ namespace Trendify.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
-        public async Task<IActionResult> Create(CategoryDTO category)
+        public async Task<IActionResult> Create(CategoryDTO category,IFormFile file)
         {
+            var imagesUrl =await _context.UploadFile(file);
 
-            if (!ModelState.IsValid)
-            {
-                return View(category);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(category);
+            //}
             
-            await _context.Create(category);
+            await _context.Create(category,imagesUrl);
             return RedirectToAction("Index");
         }
 
