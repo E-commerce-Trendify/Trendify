@@ -90,12 +90,13 @@ namespace Trendify.Services
             return category;
         }
 
-        public async Task Update(int id, CategoryDTO category)
+        public async Task Update(int id, CategoryDTO category, string ImageURL)
         {
             var updateCategory = await _context.Categories.FindAsync(id);
 
                 updateCategory.Name = category.Name;
                 updateCategory.Description = category.Description;
+            updateCategory.ImageUrl = ImageURL;
                 
                 
 

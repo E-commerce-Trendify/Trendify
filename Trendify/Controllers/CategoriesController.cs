@@ -67,11 +67,11 @@ namespace Trendify.Controllers
         {
             var imagesUrl =await _context.UploadFile(file);
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(category);
-            //}
-            
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+
             await _context.Create(category,imagesUrl);
             return RedirectToAction("Index");
         }
@@ -82,14 +82,16 @@ namespace Trendify.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, CategoryDTO category)
+        public async Task<IActionResult> Edit(int id, CategoryDTO category,IFormFile file)
         {
+
+            var ImageURL = await _context.UploadFile(file); 
 
             if (!ModelState.IsValid)
             {
                 return View(category);
             }
-            await _context.Update(id, category);
+            await _context.Update(id, category, ImageURL);
             return RedirectToAction("Index");
         }
         [Authorize(Roles = "Editor")]
