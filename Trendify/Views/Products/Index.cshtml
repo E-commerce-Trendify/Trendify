@@ -6,8 +6,12 @@
 
 <div class="flex-row" style="justify-content:space-between;align-items:center">
     <h2>Products</h2>
+    @if (User.IsInRole("Admin"))
+    {
 
-    <h1> <a class="btn btn-primary" asp-action="Create">Create New</a></h1>
+        <h1> <a class="btn btn-primary" asp-action="Create">Create New</a></h1>
+    }
+
 
 </div>
 
@@ -38,23 +42,33 @@
         {
 
             <div class="card" style="width: 18rem;margin:10px">
-                <a asp-action="Details" asp-route-id="@item.CategoryID">
-                    <img name="@item.Name" src="@item.ImageUrl" class="card-img-top" alt="..." >
+                <a asp-action="Details" asp-route-id="@item.CategoryID" >
+                    <img name="@item.Name" src="@item.ImageUrl" class="card-img-top" style="width:100%;height:300px" alt="..." >
                     
                 </a>
                 <div class="card-body">
                     <div>
                         <div class="flex-row" style="justify-content:space-between;align-items:center">
                             <h4 class="card-title">@item.Name</h4>
+
                         <h3 class="btn btn-dark" ,class="card-title" style="border-radius:50%; color:white;">@item.Price</h3>
+
                         </div>
                     </div>
                     <h6 class="flex-row">@item.Description</h6>
                     <div class="flex-row" style="width:100%;justify-content:space-around;align-items:center">
-                    <a class="btn btn-outline-dark" asp-controller="Categories" asp-action="Details" asp-route-id="@item.ProductID"> Details</a>
-                    <a class="btn btn-outline-warning" asp-controller="Peoducts" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a>
 
-                    <a class="btn btn-outline-danger" asp-controller="Peoducts" asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+<a class="btn btn-outline-dark" asp-controller="Categories" asp-action="Details" asp-route-id="@item.ProductID"> Details</a>
+                    @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-outline-warning" asp-controller="Peoducts" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a>
+                    }
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-outline-danger" asp-controller="Peoducts" asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+                    }
+
                     </div>
                 </div>
             </div>

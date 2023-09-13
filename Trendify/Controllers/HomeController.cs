@@ -50,7 +50,7 @@ namespace Trendify.Controllers
 
             ViewData["name"] = name;
             ViewBag.Name = name;
-
+           
             return View();
         }
 

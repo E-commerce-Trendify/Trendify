@@ -22,17 +22,31 @@
     <input asp-for="@Model.StockQuantity" class="form-control" />
     <span asp-validation-for="StockQuantity" class="text-danger"></span>
 </div>
-<div class="form-group">
-    <label asp-for="CategoryID" class="form-label mt-4"></label>
-    <input asp-for="@Model.CategoryID" class="form-control" />
-    <span asp-validation-for="CategoryID" class="text-danger"></span>
-    <div/>
+
     <div class="form-label mt-4">
         <input class="form-control" type="file" name="file" />
 
         </div>
 
     <br />
+
+
+@* <div class="form-group">
+    <label asp-for="CategoryID" class="control-label"></label>
+    <input asp-for="@Model.CategoryID" class="form-control" />
+    <span asp-validation-for="CategoryID" class="text-danger"></span>
+    <div/>
+    <div> *@
+    
+@*         //Select name categories in my database
+ *@
+    
+    <div class="form-group">
+        <label asp-for="CategoryID" class="form-label mt-4"></label>
+        <select asp-for="@Model.CategoryID" class="form-control" asp-items="ViewBag.AllCategories">
+        </select>
+        <span asp-validation-for="CategoryID" class="text-danger"></span>
+    </div>
 
     @if (Model.ProductId > 0)
     {

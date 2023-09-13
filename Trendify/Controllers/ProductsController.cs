@@ -17,9 +17,11 @@ namespace Trendify.Controllers
     public class ProductsController : Controller
     {
         private readonly IProducts _context;
+        private readonly ICategory categories;
 
-        public ProductsController(IProducts context)
+        public ProductsController(IProducts context, ICategory categorie)
         {
+            categories = categorie;
             _context = context;
         }
 
@@ -40,8 +42,10 @@ namespace Trendify.Controllers
 
         // GET: Products/Create
         [Authorize(Roles = "Admin")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var categoriees = await categories.GetAllCategories();
+            ViewBag.AllCategories = new SelectList(categoriees, "CategoryID", "Name");
             ProductsDto productsDto = new ProductsDto();
             return View(productsDto);
         }
@@ -52,7 +56,11 @@ namespace Trendify.Controllers
         [HttpPost]
         public async Task<IActionResult> Create( ProductsDto product , IFormFile file)
         {
+            var categoriees = await categories.GetAllCategories();
+            ViewBag.AllCategories = new SelectList(categoriees, "CategoryID", "Name");
             var imagesURl = await _context.UploadFile(file);
+            ModelState.Remove("file");
+
             if (!ModelState.IsValid)
             {
                 return View(product);
@@ -67,6 +75,8 @@ namespace Trendify.Controllers
         [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int id)
         {
+            var categoriees = await categories.GetAllCategories();
+            ViewBag.AllCategories = new SelectList(categoriees, "CategoryID", "Name");
             var prodcut = await _context.GetProductById(id);
             var Product = new ProductsDto()
             {
@@ -88,12 +98,15 @@ namespace Trendify.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ProductsDto product,IFormFile file)
         {
+            var categoriees = await categories.GetAllCategories();
+            ViewBag.AllCategories = new SelectList(categoriees, "CategoryID", "Name");
             var imagesURl = await _context.UploadFile(file);
+            ModelState.Remove("file");
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(product);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(product);
+            }
 
             await _context.Update(product, id,imagesURl);
             return RedirectToAction("Index");
