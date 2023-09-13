@@ -6,28 +6,40 @@
 <div class="flex-row" style="justify-content:space-between;align-items:center">
 <h2>Category</h2>
 
+ @if (User.IsInRole("Admin"))
+                    {
     <h1> <a class="btn btn-primary" asp-action="Create">Create New</a></h1>
-    
+                    }
 </div>
 <div class="flex-row" style="flex-wrap:wrap">
 @foreach (var item in Model) {
 
         <div class="card" style="width: 23rem;margin:10px">
             <a asp-action="Details" asp-route-id="@item.CategoryID">
-                <img src="@item.ImageURL" class="card-img-top" alt="...">
+                <img src="@item.ImageURL" class="card-img-top" alt="..." style="width:100%;height:300px">
             </a>
                 <div class="card-body"><div>
-                    <div class="flex-row" style="justify-content:space-between;align-items:center">
+                    <div class="flex-row" style="justify-content:space-between;align-items:center; ">
                         <h2 class="card-title">@item.Name</h2>
                         <h3 class="btn btn-dark" ,class="card-title" style="border-radius:50%;">@item.NumberProduct</h3>
                     </div> 
                 </div>
+              
                 <h6 class="flex-row">@item.Description</h6>
                 <div class="flex-row"  style="width:100%;justify-content:space-around;align-items:center">
-                    <a class="btn btn-primary asp-controller="Categories" asp-action="Details" asp-route-id="@item.CategoryID"> Details</a>
-                    <a class="btn btn-primary asp-controller="Categories" asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a>
+@*                     <a class="btn btn-primary asp-controller="Categories" asp-action="Details" asp-route-id="@item.CategoryID"> Details</a>
+ *@                    @if (User.IsInRole("Editor"))
+                    {
+                        <a class="btn btn-primary asp-controller="Categories" asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a>
 
-                    <a class="btn btn-primary asp-controller="Categories" asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-primary asp-controller="Categories" asp-action="Delete" asp-route-id="@item.CategoryID">Delete</a>
+                    }
+
+
+
                 </div>
                 </div>
             </div>

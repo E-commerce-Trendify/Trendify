@@ -1,17 +1,18 @@
-﻿
+﻿<div class="container text-center mt-5" style=" border: 1px solid #000;border-radius:1%; width:400px">
+    <h1>Login</h1>
+    <form method="post" action="/Auth/Authenticate" class="mt-4">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username:</label>
+            <input type="text" name="username" class="form-control" id="username" style="background-color: #fff;" placeholder="Enter your username">
+        </div>
 
-﻿<form class="form-inline" method="post" action="/Auth/Authenticate">
-    <div class="form-group">
-        <label class="sr-only" for="username">username:</label>
-        <input type="text" name="username" class="form-control" id="username">
-    </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" name="password" class="form-control" id="password" style="background-color: #fff;" placeholder="Enter your password">
+        </div>
 
-    <div class="form-group">
-        <label class="sr-only" for="password">Password:</label>
-        <input type="password" name="password" class="form-control" id="password">
-    </div>
+        <button type="submit" class="btn btn-dark">Sign in</button>
+    </form>
 
-    <button type="submit" class="btn btn-default">Sign in</button>
-</form>
-
-<div asp-validation-summary="All"></div>
+    <div asp-validation-summary="All" class="mt-4"></div>
+</div>
