@@ -12,8 +12,8 @@ using Trendify.Data;
 namespace Trendify.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20230912084626_seedingImages")]
-    partial class seedingImages
+    [Migration("20230912100358_updateData")]
+    partial class updateData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -50,22 +50,25 @@
                     <div>
                         <div class="flex-row" style="justify-content:space-between;align-items:center">
                             <h4 class="card-title">@item.Name</h4>
-                        <h3 class="btn btn-warning" ,class="card-title" style="border-radius:20%;">@item.Price$</h3>
+
+                        <h3 class="btn btn-dark" ,class="card-title" style="border-radius:50%; color:white;">@item.Price</h3>
+
                         </div>
                     </div>
                     <h6 class="flex-row">@item.Description</h6>
                     <div class="flex-row" style="width:100%;justify-content:space-around;align-items:center">
-@*                         <a class="btn btn-primary asp-controller="Categories" asp-action="Details" asp-route-id="@item.ProductID"> Details</a>
- *@
+
+<a class="btn btn-outline-dark" asp-controller="Categories" asp-action="Details" asp-route-id="@item.ProductID"> Details</a>
                     @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
                     {
-                        <a class="btn btn-primary asp-controller="Peoducts" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a>
+                        <a class="btn btn-outline-warning" asp-controller="Peoducts" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a>
                     }
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <a class="btn btn-primary asp-controller="Peoducts" asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+                        <a class="btn btn-outline-danger" asp-controller="Peoducts" asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
                     }
+
                     </div>
                 </div>
             </div>

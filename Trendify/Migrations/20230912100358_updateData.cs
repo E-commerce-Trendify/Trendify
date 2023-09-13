@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trendify.Migrations
 {
     /// <inheritdoc />
-    public partial class seedingImages : Migration
+    public partial class updateData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
