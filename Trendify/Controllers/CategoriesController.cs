@@ -66,6 +66,7 @@ namespace Trendify.Controllers
         public async Task<IActionResult> Create(CategoryDTO category,IFormFile file)
         {
             var imagesUrl =await _context.UploadFile(file);
+            ModelState.Remove("file");
 
             if (!ModelState.IsValid)
             {
@@ -85,7 +86,8 @@ namespace Trendify.Controllers
         public async Task<IActionResult> Edit(int id, CategoryDTO category,IFormFile file)
         {
 
-            var ImageURL = await _context.UploadFile(file); 
+            var ImageURL = await _context.UploadFile(file);
+            ModelState.Remove("file");
 
             if (!ModelState.IsValid)
             {
@@ -94,7 +96,7 @@ namespace Trendify.Controllers
             await _context.Update(id, category, ImageURL);
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Editor")]
+        [Authorize(Roles = "Editor,Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _context.GetCategoryById(id);

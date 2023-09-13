@@ -21,20 +21,23 @@ namespace Trendify.Services
 
         public async Task<string> UploadFile(IFormFile file)
         {
-
-            BlobContainerClient blobcontener = new BlobContainerClient(_configuration.GetConnectionString("StorageAuzer"), "images");
-            await blobcontener.CreateIfNotExistsAsync();
-            BlobClient blobClient = blobcontener.GetBlobClient(file.FileName);
-            using var fileStream = file.OpenReadStream();
-            BlobUploadOptions blobOption = new BlobUploadOptions()
+            if (file != null)
             {
-                HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
-            };
-            if (!blobClient.Exists())
-            {
-                await blobClient.UploadAsync(fileStream, blobOption);
+                BlobContainerClient blobcontener = new BlobContainerClient(_configuration.GetConnectionString("StorageAuzer"), "images");
+                await blobcontener.CreateIfNotExistsAsync();
+                BlobClient blobClient = blobcontener.GetBlobClient(file.FileName);
+                using var fileStream = file.OpenReadStream();
+                BlobUploadOptions blobOption = new BlobUploadOptions()
+                {
+                    HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
+                };
+                if (!blobClient.Exists())
+                {
+                    await blobClient.UploadAsync(fileStream, blobOption);
+                }
+                return blobClient.Uri.ToString();
             }
-            return blobClient.Uri.ToString();
+            return "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png";
         }
 
         public async Task Create(CategoryDTO category,string imageUrl)

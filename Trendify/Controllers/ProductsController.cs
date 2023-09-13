@@ -72,7 +72,7 @@ namespace Trendify.Controllers
         }
 
         // GET: Products/Edit/5
-        [Authorize(Roles = "Editor")]
+        [Authorize(Roles = "Editor,Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var categoriees = await categories.GetAllCategories();
