@@ -3,48 +3,48 @@
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="form-group">
-    <label asp-for="Name" class="control-label"></label>
+    <label asp-for="Name" class="form-label mt-4"></label>
     <input asp-for="@Model.Name" class="form-control" />
     <span asp-validation-for="Name" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="Description" class="control-label"></label>
+    <label asp-for="Description" class="form-label mt-4"></label>
     <input asp-for="@Model.Description" class="form-control" />
     <span asp-validation-for="Description" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="Price" class="control-label"></label>
+    <label asp-for="Price" class="form-label mt-4"></label>
     <input asp-for="@Model.Price" class="form-control" />
     <span asp-validation-for="Price" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="StockQuantity" class="control-label"></label>
+    <label asp-for="StockQuantity" class="form-label mt-4"></label>
     <input asp-for="@Model.StockQuantity" class="form-control" />
     <span asp-validation-for="StockQuantity" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="CategoryID" class="control-label"></label>
+    <label asp-for="CategoryID" class="form-label mt-4"></label>
     <input asp-for="@Model.CategoryID" class="form-control" />
     <span asp-validation-for="CategoryID" class="text-danger"></span>
     <div/>
-    <div class="form-group">
-        <input type="file" name="file" />
+    <div class="form-label mt-4">
+        <input class="form-control" type="file" name="file" />
 
-        <div />
-    
+        </div>
 
+    <br />
 
     @if (Model.ProductId > 0)
     {
         <div class="form-group">
-            <input type="submit" value="Update" class="btn btn-primary" />
+                <input type="submit" value="Update" class="btn btn-outline-warning" />
         </div>
         
     }
     else
     {
         <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-outline-success" />
         </div>
     }
 
