@@ -1,4 +1,4 @@
-﻿*,
+﻿/**,
 *:before,
 *:after {
     padding: 0;
@@ -101,3 +101,4 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
+*/
