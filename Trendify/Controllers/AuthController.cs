@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using Trendify.DTOs;
 using Trendify.Interface;
 using Trendify.Models.Entites;
@@ -21,7 +22,7 @@ namespace Trendify.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+			return View();
         }
 
         public IActionResult Signup()
@@ -41,7 +42,7 @@ namespace Trendify.Controllers
                 return View();
             }
 
-            return Redirect("/");
+			return Redirect("/");
         }
 
         [HttpPost]
@@ -50,14 +51,13 @@ namespace Trendify.Controllers
 
             var user = await userService.Authentication(loginData.Username, loginData.Password);
 
-            if (user == null)
+			if (user == null)
             {
                 this.ModelState.AddModelError("InvalidLogin", "Invalid login attempt");
 
                 return RedirectToAction("Index");
             }
-
-            return Redirect("/");
+			return Redirect("/");
         }
         public async Task<IActionResult> Logout()
         {

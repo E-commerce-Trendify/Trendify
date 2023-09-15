@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trendify.Migrations
 {
     /// <inheritdoc />
-    public partial class updateData : Migration
+    public partial class seeeding : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,7 +58,7 @@ namespace Trendify.Migrations
                 {
                     CategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -211,8 +211,8 @@ namespace Trendify.Migrations
                 columns: new[] { "CategoryID", "Description", "ImageUrl", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Electronic gadgets and devices", "dsds", "Electronics" },
-                    { 2, "Fashionable clothing items", "sss", "Clothing" }
+                    { 1, "Electronic gadgets and devices", "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png", "Electronics" },
+                    { 2, "Fashionable clothing items", "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png", "Clothing" }
                 });
 
             migrationBuilder.InsertData(
@@ -220,8 +220,8 @@ namespace Trendify.Migrations
                 columns: new[] { "ProductID", "CategoryID", "Description", "ImageUrl", "Name", "Price", "StockQuantity" },
                 values: new object[,]
                 {
-                    { 1, 1, "High-performance laptop", "sss", "Laptop", 999.99m, 50 },
-                    { 2, 1, "Latest smartphone model", "sss", "Smartphone", 699.99m, 100 }
+                    { 1, 1, "High-performance laptop", "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png", "Laptop", 999.99m, 50 },
+                    { 2, 1, "Latest smartphone model", "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png", "Smartphone", 699.99m, 100 }
                 });
 
             migrationBuilder.CreateIndex(

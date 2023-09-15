@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="flex-row" style="justify-content:space-between;align-items:center">
+<div class="flex-Row" style="justify-content:space-between;align-items:center">
     <h2>Products</h2>
     @if (User.IsInRole("Admin"))
     {
@@ -37,28 +37,29 @@
         </tr>
     </thead>
     <tbody> *@
-       <div class="flex-row" style="flex-wrap:wrap">
+<div class="flex-Row" style="flex-wrap:wrap">
         @foreach (var item in Model)
         {
-
-            <div class="card" style="width: 20rem;margin:10px;">
+            <div class="card" style="width:23rem ;margin:4px">
                 <a asp-action="Details" asp-route-id="@item.CategoryID" >
-                    <img name="@item.Name" src="@item.ImageUrl" class="card-img-top" style="width:100%;height:300px" alt="..." >
-                    
+                <img  src="@item.ImageUrl" class="card-img-top post-thumbnail" style="width:100%;height:300px">
+                 
                 </a>
-                <div class="card-body">
-                    <div>
-                        <div class="flex-row" style="justify-content:space-between;align-items:center">
-                            <h4 class="card-title">@item.Name</h4>
+            <div class="card-body" style="display:flex;flex-direction:column; width:100%;" >
+                <div style="align-self:end"><h3 class="btn btn-dark" ,class="card-title" style="border-radius:5%; color:white;">@item.Price$</h3></div>
 
-                        <h3 class="btn btn-dark" ,class="card-title" style="border-radius:50%; color:white;">@item.Price</h3>
+                <div style=" justify-content:space-between;align-items:center">
+
+                    <h4 class="card-title">@item.Name</h4>
+
 
                         </div>
-                    </div>
-                    <h6 class="flex-row">@item.Description</h6>
-                    <div class="flex-row" style="width:100%;justify-content:space-around;align-items:center">
+                    <h6>@item.Description</h6>
 
-                    <a class="btn btn-outline-dark asp-controller="Categories" asp-action="Details" asp-route-id="@item.ProductID"> Details</a>
+                 
+                <div style="display:flex; justify-content:space-around;margin-top:auto; width:100%">
+
+                    <a class="btn btn-outline-dark" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID"> Details</a>
 
                     @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
                     {

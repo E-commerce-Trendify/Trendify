@@ -12,8 +12,8 @@ using Trendify.Data;
 namespace Trendify.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20230912100358_updateData")]
-    partial class updateData
+    [Migration("20230915194611_seeeding")]
+    partial class seeeding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,7 +191,8 @@ namespace Trendify.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.HasKey("CategoryID");
 
@@ -202,14 +203,14 @@ namespace Trendify.Migrations
                         {
                             CategoryID = 1,
                             Description = "Electronic gadgets and devices",
-                            ImageUrl = "dsds",
+                            ImageUrl = "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png",
                             Name = "Electronics"
                         },
                         new
                         {
                             CategoryID = 2,
                             Description = "Fashionable clothing items",
-                            ImageUrl = "sss",
+                            ImageUrl = "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png",
                             Name = "Clothing"
                         });
                 });
@@ -319,7 +320,7 @@ namespace Trendify.Migrations
                             ProductID = 1,
                             CategoryID = 1,
                             Description = "High-performance laptop",
-                            ImageUrl = "sss",
+                            ImageUrl = "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png",
                             Name = "Laptop",
                             Price = 999.99m,
                             StockQuantity = 50
@@ -329,7 +330,7 @@ namespace Trendify.Migrations
                             ProductID = 2,
                             CategoryID = 1,
                             Description = "Latest smartphone model",
-                            ImageUrl = "sss",
+                            ImageUrl = "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png",
                             Name = "Smartphone",
                             Price = 699.99m,
                             StockQuantity = 100

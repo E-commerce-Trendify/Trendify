@@ -2,6 +2,99 @@
 	ViewData["Title"] = "Home Page";
 }
 
+@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+{
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap4" />
+
+	<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+ 	<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+	
+	
+	
+</head>
+
+<body>
+
+	<div class="blog-section" >
+			<div >
+			@* 	<div >
+					<div class="flex-row justify-content-center" style="margin:10px">
+						@if (User.IsInRole("Editor"))
+						{
+							<h2 class="section-title">Welcome Editor @User.Identity.Name</h2>
+
+						}
+						else
+						{
+							<h2 class="section-title">Welcome Admin @User.Identity.Name</h2>
+
+						}
+
+				</div>
+
+			</div> *@
+
+				<div style="margin-left:40px" class="row">
+
+				<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+					<div class="post-entry">
+							<a asp-controller="Categories" asp-action="Index" class="post-thumbnail">
+								<img src="https://lectera.com/info/storage/img/20220309/b87d52d6ede361b47b0c_808xFull.png" alt="Image" class="img-fluid" style="height:200px"></a>
+							<div class="post-content-entry text-center">
+							<h3><a  asp-controller="Categories" asp-action="Index"> View All category</a></h3>
+					
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+					<div class="post-entry">
+							<a asp-controller="Products" asp-action="Index" class="post-thumbnail"><img src="https://cdn.shopify.com/s/files/1/0070/7032/files/trending-products_c8d0d15c-9afc-47e3-9ba2-f7bad0505b9b.png?format=jpg&quality=90&v=1614559651" alt="Image" class="img-fluid" style="height:200px"></a>
+							<div class="post-content-entry text-center">
+								<h3><a asp-controller="Products" asp-action="Index">View all Product</a></h3>
+							
+						</div>
+					</div>
+				</div>
+					@if (User.IsInRole("Admin"))
+					{
+						<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+					<div class="post-entry">
+								<a asp-area="" asp-controller="Auth" class="post-thumbnail"><img src="https://static.prod01.ue1.p.pcomm.net/blackbaud/user_content/photos/000/006/6783/a6132a5cd55abcae190bc82567ca8a47-original-users.png" alt="Image" class="img-fluid" style="height:200px"></a>
+							<div class="post-content-entry text-center ">
+									<h3><a asp-area="" asp-controller="Auth" asp-action="UserRoles">View all User</a></h3>
+							
+						</div>
+					</div>
+				</div>
+					}
+				
+
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+}
+else
+{
+	
 
 <!DOCTYPE html>
 <html lang="en">
@@ -341,29 +434,9 @@
 		</footer>
 		<!-- End Footer Section -->	
 	*@
-	<script>const slider = document.querySelector('.slider');
-const slides = slider.querySelectorAll('li');
 
-// Store the total number of images
-const slideCount = slides.length;
-let activeSlide = 0;
-
-// To change the images dynamically every 
-// 5 Secs, use SetInterval() method
-setInterval(() => {
-    slides[activeSlide].classList.remove('active');
-    activeSlide++;
-    if (activeSlide === slideCount) {
-        activeSlide = 0;
-    }
-    slides[activeSlide].classList.add('active');
-}, 5000);</script>
-	<script src="~/js/bootstrap.js" asp-append-version="true"></script>
-	<script src="~/js/custom.js" asp-append-version="true"></script>
-	<script src="~/js/tiny.js" asp-append-version="true"></script>
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 
 </html>
+
+	}

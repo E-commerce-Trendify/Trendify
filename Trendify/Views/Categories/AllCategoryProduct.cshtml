@@ -5,7 +5,7 @@
 }
 
 
-<div>
+@* <div>
     
     <h4>@Model.Name</h4>
  
@@ -30,6 +30,52 @@
 
     }
 
+</div> *@
+<h4>@Model.Name</h4>
+
+<h6> @Model.Description</h6>
+<div class="flex-Row" style="flex-wrap:wrap">
+    
+    <hr />
+    @foreach (var item in Model.Products)
+    {
+
+        <div class="card" style="width:23rem ;margin:4px">
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID">
+                <img src="@item.ImageUrl" class="card-img-top" style="width:100%;height:300px">
+
+            </a>
+            <div class="card-body" style="display:flex;flex-direction:column; width:100%;">
+                <div style="align-self:end"><h3 class="btn btn-dark" ,class="card-title" style="border-radius:5%; color:white;">@item.Price$</h3></div>
+
+                <div style=" justify-content:space-between;align-items:center">
+
+                    <h4 class="card-title">@item.Name</h4>
+
+
+                </div>
+                <h6>@item.Description</h6>
+
+
+                <div style="display:flex; justify-content:space-around;margin-top:auto; width:100%">
+
+                    <a class="btn btn-outline-dark" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID"> Details</a>
+
+                    @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-outline-warning" asp-controller="Products" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a>
+                    }
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-outline-danger" asp-controller="Products" asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+    }
 </div>
 <div>
 </div>

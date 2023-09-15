@@ -92,7 +92,7 @@ namespace Trendify.Services
             }).FirstOrDefaultAsync();
             return category;
         }
-
+      
         public async Task Update(int id, CategoryDTO category, string ImageURL)
         {
             var updateCategory = await _context.Categories.FindAsync(id);
@@ -100,9 +100,6 @@ namespace Trendify.Services
                 updateCategory.Name = category.Name;
                 updateCategory.Description = category.Description;
             updateCategory.ImageUrl = ImageURL;
-                
-                
-
                 _context.Entry(updateCategory).State = EntityState.Modified;
 
                 await _context.SaveChangesAsync();
