@@ -12,6 +12,7 @@ namespace Trendify.DTOs
         [Required]
         public string Description { get; set; }
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Price must be a positive number.")]
         public decimal Price { get; set; }
         [Required]
         public int StockQuantity { get; set; }

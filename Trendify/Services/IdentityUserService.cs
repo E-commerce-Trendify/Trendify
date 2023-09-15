@@ -20,25 +20,23 @@ namespace Trendify.Services
             _signInManager = signInManager;
         }
 
-        public async Task<UserDto> Authentication(string username, string password)
-        {
-            var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
+		public async Task<UserDto> Authentication(string username, string password)
+		{
+			var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
+			if (result.Succeeded)
+			{
+				var user = await _userManager.FindByNameAsync(username);
+				return new UserDto()
+				{
+					Username = user.UserName,
+					Roles = await _userManager.GetRolesAsync(user)
+				};
+			}
+		
+			return null;
+		}
 
-            if (result.Succeeded)
-            {
-                var user = await _userManager.FindByNameAsync(username);
-
-                return new UserDto()
-                {
-                    Username = user.UserName,
-                    Roles = await _userManager.GetRolesAsync(user)
-                };
-            }
-
-            return null;
-        }
-
-        public async Task<UserDto> GetUser(ClaimsPrincipal principal)
+		public async Task<UserDto> GetUser(ClaimsPrincipal principal)
         {
             var user = await _userManager.GetUserAsync(principal);
             return new UserDto
