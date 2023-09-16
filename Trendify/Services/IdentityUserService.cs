@@ -20,6 +20,12 @@ namespace Trendify.Services
             _signInManager = signInManager;
         }
 
+        /// <summary>
+        /// Authenticates a user based on their username and password.
+        /// </summary>
+        /// <param name="username">The username of the user.</param>
+        /// <param name="password">The user's password.</param>
+        /// <returns>A UserDto representing the authenticated user or null if authentication fails.</returns>
 		public async Task<UserDto> Authentication(string username, string password)
 		{
 			var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
@@ -35,7 +41,11 @@ namespace Trendify.Services
 		
 			return null;
 		}
-
+        /// <summary>
+        /// Retrieves a UserDto based on the claims principal.
+        /// </summary>
+        /// <param name="principal">The claims principal of the user.</param>
+        /// <returns>A UserDto representing the user associated with the claims principal.</returns>
 		public async Task<UserDto> GetUser(ClaimsPrincipal principal)
         {
             var user = await _userManager.GetUserAsync(principal);
@@ -46,7 +56,13 @@ namespace Trendify.Services
                 Roles = await _userManager.GetRolesAsync(user)
             };
         }
-            public async Task<UserDto> Register(RegisterUserDto data, ModelStateDictionary modelState)
+        /// <summary>
+        /// Registers a new user with the provided registration data.
+        /// </summary>
+        /// <param name="data">The registration data.</param>
+        /// <param name="modelState">The model state to add errors in case of registration failure.</param>
+        /// <returns>A UserDto representing the registered user or null if registration fails.</returns>
+        public async Task<UserDto> Register(RegisterUserDto data, ModelStateDictionary modelState)
         {
             var user = new AuthUser
             {
