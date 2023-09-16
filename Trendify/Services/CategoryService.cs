@@ -19,6 +19,11 @@ namespace Trendify.Services
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Uploads a file to Azure Blob Storage and returns the URL of the uploaded file.
+        /// </summary>
+        /// <param name="file">The file to upload.</param>
+        /// <returns>The URL of the uploaded file.</returns>
         public async Task<string> UploadFile(IFormFile file)
         {
             if (file != null)
@@ -40,6 +45,11 @@ namespace Trendify.Services
             return "https://emojigraph.org/media/microsoft/shopping-cart_1f6d2.png";
         }
 
+        /// <summary>
+        /// Creates a new category in the database.
+        /// </summary>
+        /// <param name="category">The category data to create.</param>
+        /// <param name="imageUrl">The URL of the category's image.</param>
         public async Task Create(CategoryDTO category,string imageUrl)
         {
 
@@ -55,6 +65,10 @@ namespace Trendify.Services
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Deletes a category by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the category to delete.</param>
         public async Task Delete(int id)
         {
             Category DeleteCategory = await _context.Categories.FindAsync(id);
@@ -64,6 +78,10 @@ namespace Trendify.Services
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Retrieves a list of all categories along with their associated products.
+        /// </summary>
+        /// <returns>A list of CategoryDtoView objects representing categories.</returns>
         public async Task<List<CategoryDtoView>> GetAllCategories()
         {
             var category = await _context.Categories.Include(c => c.Products).Select(x => new CategoryDtoView
@@ -78,6 +96,11 @@ namespace Trendify.Services
             return category;
            }
 
+        /// <summary>
+        /// Retrieves a category by its ID along with its associated products.
+        /// </summary>
+        /// <param name="id">The ID of the category to retrieve.</param>
+        /// <returns>A CategoryDtoView object representing the category.</returns>
         public async Task<CategoryDtoView> GetCategoryById(int id)
         {
             var category = await _context.Categories.Where(s => s.CategoryID == id).Include(c => c.Products).Select(x => new CategoryDtoView
@@ -92,7 +115,13 @@ namespace Trendify.Services
             }).FirstOrDefaultAsync();
             return category;
         }
-      
+
+        /// <summary>
+        /// Updates an existing category with new data.
+        /// </summary>
+        /// <param name="id">The ID of the category to update.</param>
+        /// <param name="category">The updated category data.</param>
+        /// <param name="ImageURL">The URL of the updated category image.</param>
         public async Task Update(int id, CategoryDTO category, string ImageURL)
         {
             var updateCategory = await _context.Categories.FindAsync(id);
