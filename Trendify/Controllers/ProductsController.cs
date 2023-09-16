@@ -2,157 +2,174 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
+using Trendify.DTOs;
+using Trendify.Interface;
 using Trendify.Models;
 
 namespace Trendify.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly EcommerceDbContext _context;
+        private readonly IProducts _context;
+        private readonly ICategory categories;
 
-        public ProductsController(EcommerceDbContext context)
+        public ProductsController(IProducts context, ICategory categorie)
         {
+            categories = categorie;
             _context = context;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var ecommerceDbContext = _context.Products.Include(p => p.Category);
-            return View(await ecommerceDbContext.ToListAsync());
+            var ecommerceDbContext = await _context.GetAllProducts();
+            return View(ecommerceDbContext);
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-      
 
-            var product = await _context.Products
-                .Include(p => p.Category)
-                .FirstOrDefaultAsync(m => m.ProductID == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
+            var product =await _context.GetProductById(id);
             return View(product);
         }
 
         // GET: Products/Create
-        public IActionResult Create()
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID");
-            return View();
+            var categoriees = await categories.GetAllCategories();
+            ViewBag.AllCategories = new SelectList(categoriees, "CategoryID", "Name");
+            ProductsDto productsDto = new ProductsDto();
+            return View(productsDto);
         }
 
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,Name,Description,Price,StockQuantity,CategoryID")] Product product)
+        public async Task<IActionResult> Create( ProductsDto product , IFormFile file)
         {
-          
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", product.CategoryID);
-            return View(product);
+            var categoriees = await categories.GetAllCategories();
+            ViewBag.AllCategories = new SelectList(categoriees, "CategoryID", "Name");
+            var imagesURl = await _context.UploadFile(file);
+            ModelState.Remove("file");
+
+            if (!ModelState.IsValid)
+            {
+                return View(product);
+            }
+            await _context.Create(product,imagesURl);
+            return RedirectToAction("Index");
+
+
         }
 
         // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [Authorize(Roles = "Editor,Admin")]
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.Products == null)
+            var categoriees = await categories.GetAllCategories();
+            ViewBag.AllCategories = new SelectList(categoriees, "CategoryID", "Name");
+            var prodcut = await _context.GetProductById(id);
+            var Product = new ProductsDto()
             {
-                return NotFound();
-            }
+                ProductId = prodcut.ProductID,
+                CategoryID = prodcut.CategoryID,
+                StockQuantity = prodcut.StockQuantity,
+                Name = prodcut.Name,
+                Description = prodcut.Description,  
+                Price  = prodcut.Price,
+                ImageURL=prodcut.ImageUrl
+            };
 
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", product.CategoryID);
-            return View(product);
+            return View(Product);
         }
 
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductID,Name,Description,Price,StockQuantity,CategoryID")] Product product)
+        public async Task<IActionResult> Edit(int id, ProductsDto product,IFormFile file)
         {
-            if (id != product.ProductID)
+            var categoriees = await categories.GetAllCategories();
+            ViewBag.AllCategories = new SelectList(categoriees, "CategoryID", "Name");
+            var imagesURl = await _context.UploadFile(file);
+            ModelState.Remove("file");
+
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return View(product);
             }
 
-            
-              
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                
-          
-                    if (!ProductExists(product.ProductID))
-                    {
-                        return NotFound();
-                    }
-                  
-                
-                return RedirectToAction(nameof(Index));
-            
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", product.CategoryID);
-            return View(product);
+            await _context.Update(product, id,imagesURl);
+            return RedirectToAction("Index");
+
         }
 
-        // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Categories/Delete/5
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null || _context.Products == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .Include(p => p.Category)
-                .FirstOrDefaultAsync(m => m.ProductID == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
+            var category = await _context.GetProductById(id);
+            return View(category);
+        }
+        // POST: Categories/Delete/5
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, string category)
+        {
+            await _context.Delete(id);
+            return RedirectToAction("Index");
         }
 
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Products == null)
-            {
-                return Problem("Entity set 'EcommerceDbContext.Products'  is null.");
-            }
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //    // GET: Products/Delete/5
+        //    public async Task<IActionResult> Delete(int? id)
+        //    {
+        //        if (id == null || _context.Products == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-        private bool ProductExists(int id)
-        {
-          return (_context.Products?.Any(e => e.ProductID == id)).GetValueOrDefault();
-        }
+        //        var product = await _context.Products
+        //            .Include(p => p.Category)
+        //            .FirstOrDefaultAsync(m => m.ProductID == id);
+        //        if (product == null)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        return View(product);
+        //    }
+
+        //    // POST: Products/Delete/5
+        //    [HttpPost, ActionName("Delete")]
+        //    [ValidateAntiForgeryToken]
+        //    public async Task<IActionResult> DeleteConfirmed(int id)
+        //    {
+        //        if (_context.Products == null)
+        //        {
+        //            return Problem("Entity set 'EcommerceDbContext.Products'  is null.");
+        //        }
+        //        var product = await _context.Products.FindAsync(id);
+        //        if (product != null)
+        //        {
+        //            _context.Products.Remove(product);
+        //        }
+
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    private bool ProductExists(int id)
+        //    {
+        //      return (_context.Products?.Any(e => e.ProductID == id)).GetValueOrDefault();
+        //    }
+        //}
     }
 }

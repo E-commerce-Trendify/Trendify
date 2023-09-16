@@ -2,11 +2,7 @@ html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -19,4 +15,24 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+.flex-Row{
+    display:flex;
+    width:100%;
+   
+}
+.flex-column{
+    display:flex;
+    flex-direction:column;
+    width:100%
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #212529;
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+    padding: 15px;
 }

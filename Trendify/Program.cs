@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
+using Trendify.Interface;
+using Trendify.Models.Entites;
+using Trendify.Services;
 
 namespace Trendify
 {
@@ -12,9 +16,36 @@ namespace Trendify
             string Connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
             builder.Services.AddDbContext<EcommerceDbContext>
                 (option=>option.UseSqlServer(Connection));
+
+
+            builder.Services.AddIdentity<AuthUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<EcommerceDbContext>();
+
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.LoginPath = "/Auth/Index";
+            });
+
+            builder.Services.AddControllers().AddNewtonsoftJson(options =>
+options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+            builder.Services.AddControllers().AddNewtonsoftJson(
+               option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+               );
+            builder.Services.AddTransient<IUserService, IdentityUserService>();
+
+            builder.Services.AddTransient<IProducts, ProductsService>();
+            builder.Services.AddTransient<ICategory, CategoryService>();
+
+            builder.Services.AddAuthentication();
+            builder.Services.AddAuthorization();
 
 
             var app = builder.Build();
@@ -32,6 +63,7 @@ namespace Trendify
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

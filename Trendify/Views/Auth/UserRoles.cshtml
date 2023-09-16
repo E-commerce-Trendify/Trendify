@@ -1,0 +1,37 @@
+﻿@model List<Trendify.DTOs.UserDto>
+<div style="margin:20px"> 
+<h1>User Roles</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+@*             <th>User ID</th>
+ *@            <th>Username</th>
+            <th>Roles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+               @*  <td>@user.Id</td> *@
+                <td>@user.Username</td>
+                <td>@string.Join(", ", user.Roles)</td>
+                <td>
+                    @if (User.IsInRole("Admin") && !User.Identity.Name.Equals(user.Username, StringComparison.OrdinalIgnoreCase))
+                    {
+                        <form asp-controller="Auth" asp-action="ChangeUserRole" method="post">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <select name="newRole">
+                                <option value="Editor">Editor</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                            <button type="submit">Change Role</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

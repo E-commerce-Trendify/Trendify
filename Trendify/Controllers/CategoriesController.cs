@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trendify.Data;
+using Trendify.DTOs;
+using Trendify.Interface;
 using Trendify.Models;
 
 namespace Trendify.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly EcommerceDbContext _context;
+        private readonly ICategory _context;
 
-        public CategoriesController(EcommerceDbContext context)
+        public CategoriesController(ICategory context)
         {
             _context = context;
         }
@@ -22,134 +25,109 @@ namespace Trendify.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return _context.Categories != null ? 
-                          View(await _context.Categories.ToListAsync()) :
-                          Problem("Entity set 'EcommerceDbContext.Categories'  is null.");
+            var categoty = await _context.GetAllCategories();
+
+            return View(categoty);
+                       
         }
 
         // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-        
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryID == id);
-       
 
-            return View(category);
+            var categoty = await _context.GetCategoryById(id);
+
+            return View(categoty);
+        }
+
+        public async Task<IActionResult> AllCategoryProduct(int id)
+        {
+
+            var categoty = await _context.GetCategoryById(id);
+
+            return View(categoty);
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            return View();
+            CategoryDTO categoryDTO = new CategoryDTO();
+            return View(categoryDTO);
         }
+        
 
+        
         // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryID,Name,Description")] Category category)
+        public async Task<IActionResult> Create(CategoryDTO category,IFormFile file)
         {
-            
-            
-                _context.Add(category);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            
-            return View(category);
-        }
+            var imagesUrl =await _context.UploadFile(file);
+            ModelState.Remove("file");
 
-        // GET: Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Categories == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return View(category);
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
+            await _context.Create(category,imagesUrl);
+            return RedirectToAction("Index");
         }
 
+        
+        
         // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryID,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(int id, CategoryDTO category,IFormFile file)
         {
-            if (id != category.CategoryID)
-            {
-                return NotFound();
-            }
 
-          
-                try
-                {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.CategoryID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            
-            return View(category);
+            var ImageURL = await _context.UploadFile(file);
+            ModelState.Remove("file");
+
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+            await _context.Update(id, category, ImageURL);
+            return RedirectToAction("Index");
         }
-
-        // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [Authorize(Roles = "Editor,Admin")]
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.Categories == null)
+            var category = await _context.GetCategoryById(id);
+            var Category = new CategoryDTO()
             {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryID == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
+                CategoryID = category.CategoryID,
+                Name = category.Name,
+                Description = category.Description,
+                
+            };
+            return View(Category);
+        }
+        [Authorize(Roles = "Admin")]
+        // GET: Categories/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            var category = await _context.GetCategoryById(id);
+           
             return View(category);
         }
 
         // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        
+        public async Task<IActionResult> Delete(int id,string category)
         {
-            if (_context.Categories == null)
-            {
-                return Problem("Entity set 'EcommerceDbContext.Categories'  is null.");
-            }
-            var category = await _context.Categories.FindAsync(id);
-            if (category != null)
-            {
-                _context.Categories.Remove(category);
-            }
+            await _context.Delete(id);
+            return RedirectToAction("Index");
             
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
-        {
-          return (_context.Categories?.Any(e => e.CategoryID == id)).GetValueOrDefault();
-        }
+        
     }
 }
