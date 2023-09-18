@@ -30,7 +30,7 @@ namespace Trendify
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-                options.LoginPath = "/Auth/Index";
+                options.LoginPath = "/Login";
             });
 
             builder.Services.AddControllers().AddNewtonsoftJson(options =>

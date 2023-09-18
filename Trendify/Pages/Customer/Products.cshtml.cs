@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Trendify.DTOs;
@@ -5,7 +6,7 @@ using Trendify.Interface;
 using Trendify.Models;
 using Trendify.Services;
 
-namespace Trendify.Pages
+namespace Trendify.Pages.Customer
 {
     public class ProductsModel : PageModel
     {
@@ -16,10 +17,9 @@ namespace Trendify.Pages
             productsService = service;
         }
 
-        
         public async Task OnGet()
         {
-            Products = await productsService.GetAllProducts();  
+            Products = await productsService.GetAllProducts();
 
         }
     }
