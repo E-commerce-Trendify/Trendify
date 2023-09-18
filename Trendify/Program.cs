@@ -47,6 +47,8 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
             builder.Services.AddAuthentication();
             builder.Services.AddAuthorization();
 
+            builder.Services.AddRazorPages();
+
 
             var app = builder.Build();
 
@@ -65,6 +67,8 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MapRazorPages();    
 
             app.MapControllerRoute(
                 name: "default",

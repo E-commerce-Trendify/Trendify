@@ -1,12 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Trendify.DTOs;
+using Trendify.Interface;
+using Trendify.Models;
+using Trendify.Services;
 
-namespace Trendify.Views.Pages
+namespace Trendify.Pages
 {
     public class ProductsModel : PageModel
     {
-        public void OnGet()
+        private readonly IProducts productsService;
+        public List<ProductsDtoView> Products { get; set; }
+        public ProductsModel(IProducts service)
         {
+            productsService = service;
+        }
+
+        
+        public async Task OnGet()
+        {
+            Products = await productsService.GetAllProducts();  
 
         }
     }
