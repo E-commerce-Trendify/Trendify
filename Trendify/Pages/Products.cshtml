@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@page
+@model Trendify.Pages.ProductsModel
+@{
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,14 +14,15 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Trendify.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-@*     <link rel="stylesheet" href="~/css/slider.css" asp-append-version="true" />
- *@</head>
+    @*     <link rel="stylesheet" href="~/css/slider.css" asp-append-version="true" />
+    *@
+</head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
                 <div>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trendify</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trendify</a>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -28,8 +33,8 @@
 
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>                     
-                     
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                         </li>
@@ -37,7 +42,7 @@
                             <a class="nav-link active" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-page="/Products" >ProductsPages</a>
+                            <a class="nav-link active" asp-area="" asp-page="/Products">ProductsPages</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
@@ -45,9 +50,9 @@
                                 <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="UserRoles">UserRoles</a>
                             </li>
                         }
-                      
-                        </ul>
-                        </div>
+
+                    </ul>
+                </div>
                 <ul class="navbar-nav">
 
                     @if (!User.Identity.IsAuthenticated)
@@ -69,22 +74,50 @@
                         </li>
                     }
 
-                 
-@*                     @(User.IsInRole("Editor"))
-                    @if (!User.Identity.IsAuthenticated)
- *@                </ul>
 
-                </div>
+                    @*                     @(User.IsInRole("Editor"))
+                    @if (!User.Identity.IsAuthenticated)
+                    *@
+                </ul>
+
+            </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class=" footer ">
+<div class="flex-Row" style="flex-wrap:wrap">
+    @foreach (var item in Model.Products)
+    {
+        <div class="card" style="width:23rem ;margin:4px">
+            <a asp-action="Details" asp-route-id="@item.CategoryID">
+                <img src="@item.ImageUrl" class="card-img-top post-thumbnail" style="width:100%;height:300px">
+
+            </a>
+            <div class="card-body" style="display:flex;flex-direction:column; width:100%;">
+                <div style="align-self:end"><h3 class="btn btn-dark" ,class="card-title" style="border-radius:5%; color:white;">@item.Price$</h3></div>
+
+                <div style=" justify-content:space-between;align-items:center">
+
+                    <h4 class="card-title">@item.Name</h4>
+
+
+                </div>
+                <h6>@item.Description</h6>
+
+
+                <div style="display:flex; justify-content:space-around;margin-top:auto; width:100%">
+
+                    <a class="btn btn-outline-dark" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID">Details</a>
+
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+ <footer class=" footer ">
         <div class="container" style="color:gray;">
             &copy; 2023 - Trendify - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
@@ -92,6 +125,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>
