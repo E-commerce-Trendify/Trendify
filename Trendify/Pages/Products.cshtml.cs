@@ -20,6 +20,7 @@ namespace Trendify.Pages
         public async Task OnGet()
         {
             Products = await productsService.GetAllProducts();  
+
         }
     }
 }

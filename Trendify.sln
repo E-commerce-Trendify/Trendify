@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify", "Trendify\Trendify.csproj", "{61118AED-7189-4BAB-B275-04BC534FA3DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-Tendify", "Test-Tendify\Test-Tendify.csproj", "{0A1EB4D2-6293-4059-9279-4C94BA1A7072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test-Tendify", "Test-Tendify\Test-Tendify.csproj", "{0A1EB4D2-6293-4059-9279-4C94BA1A7072}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
