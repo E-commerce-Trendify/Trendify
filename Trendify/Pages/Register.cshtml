@@ -1,4 +1,226 @@
 ﻿@page
 @model Trendify.Views.Pages.RegisterModel
-@{
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Trendify</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.minn.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Trendify.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    @*     <link rel="stylesheet" href="~/css/slider.css" asp-append-version="true" />
+    *@
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <style>
+
+        .space {
+            padding-top: 30px;
+        }
+
+        #signupForm {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        .form-group label {
+            color: #333;
+        }
+
+        .form-control {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-dark {
+            background-color: #333;
+            color: #fff;
+            border: none;
+        }
+
+            .btn-dark:hover {
+                background-color: #555;
+            }
+
+        /* Add styling for alerts */
+        .alert-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 10px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container-fluid">
+                <div>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trendify</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li> 
+                         
+
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                         </li>
+                    
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-page="/Customer/Products">Products</a>
+                            </li>
+                        }
+                       
+                     
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="UserRoles">UserRoles</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+                <ul class="navbar-nav">
+
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-page="/Register">Signup</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-page="/Login">Login</a>
+                        </li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link active">Welcome, @User.Identity.Name!</span>
+                        </li>
+                    }
+
+
+                    @*                     @(User.IsInRole("Editor"))
+                    @if (!User.Identity.IsAuthenticated)
+                    *@
+                </ul>
+
+            </div>
+            </div>
+        </nav>
+    </header>
+    <div class="space"></div>
+
+            <form method="post">
+            <div style="color: black;" id="signupForm">
+                    <h3>Sign Up</h3>
+                
+                <div class="form-group">
+                    <label style="color: black;" asp-for="data.Username">UserName</label>
+                    <input asp-for="data.Username" class="form-control" placeholder="UserName">
+                </div>
+                <div class="form-group">
+                    <label asp-for="data.Email" style="color: black;" for="email">Email</label>
+                <input asp-for="data.Email" type="text" class="form-control" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label asp-for="data.Password" style="color: black;" for="password">Password</label>
+                    <input asp-for="data.Password" type="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label asp-for="data.PhoneNumber" style="color: black;" for="phonenumber"></label>
+                    <input asp-for="data.PhoneNumber" type="text" class="form-control" placeholder="Phone number"
+                           style="color: black;">
+
+                </div>
+
+                <div style="padding-top: 10px;">
+                    <button class="btn btn-dark">Sign up</button>
+                </div>
+
+                <div asp-validation-summary="All"></div>
+        </div>
+        
+            </form>
+    
+    <div class="space"></div>
+    <footer class=" footer ">
+        <div class="container" style="color:gray;">
+            &copy; 2023 - Trendify - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var phonenumber = document.getElementById("phonenumber").value;
+
+            if (username === "") {
+                showAlert("Username is a required field!");
+            } else if (email === "") {
+                showAlert("Email is a required field!");
+            } else if (password === "") {
+                showAlert("Password is a required field!");
+            } else if (phonenumber === "") {
+                showAlert("Phone Number is a required field!");
+            } else {
+                document.getElementById("signupForm").submit(); // Submit the form if all fields are filled
+            }
+        }
+
+        function showAlert(message) {
+            var alertDiv = document.createElement("div");
+            alertDiv.className = "alert alert-message"; // Use the custom alert-message class
+            alertDiv.innerHTML = message;
+
+            var container = document.getElementById("signupForm");
+            container.insertBefore(alertDiv, container.firstChild);
+
+            setTimeout(function () {
+                alertDiv.style.display = "none";
+            }, 3000); // Hide the alert after 3 seconds
+        }
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

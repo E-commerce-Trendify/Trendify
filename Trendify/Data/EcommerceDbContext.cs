@@ -50,7 +50,7 @@ namespace Trendify.Data
             modelBuilder.Entity<IdentityRole>().HasData(
                new IdentityRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN", ConcurrencyStamp = Guid.Empty.ToString() }
                , new IdentityRole { Id = "editor", Name = "Editor", NormalizedName = "EDITOR", ConcurrencyStamp = Guid.Empty.ToString() }
-
+                              , new IdentityRole { Id = "customer", Name = "Customer", NormalizedName = "CUSTOMER", ConcurrencyStamp = Guid.Empty.ToString() }
              );
 
         }
