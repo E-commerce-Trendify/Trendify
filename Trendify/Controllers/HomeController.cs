@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Trendify.Interface;
 using Trendify.Models;
 
 namespace Trendify.Controllers
@@ -8,15 +9,20 @@ namespace Trendify.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICategory _context;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger,ICategory context)
         {
             _logger = logger;
+            _context = context;
         }
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var allCategoriesandProduct = await _context.GetAllCategories();
+
+            return View(allCategoriesandProduct);
         }
 		public IActionResult HomeAdmin()
 		{
