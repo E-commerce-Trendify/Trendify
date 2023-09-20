@@ -36,3 +36,15 @@ body {
     text-align: center;
     padding: 15px;
 }
+.add-to-cart-button {
+    background-color: #007bff; /* Change the background color to your preference */
+    color: white; /* Change the text color to your preference */
+    border: none; /* Remove the button border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    padding: 10px 20px; /* Adjust padding as needed */
+    cursor: pointer; /* Add pointer cursor on hover */
+}
+
+    .add-to-cart-button:hover {
+        background-color: #0056b3; /* Change the background color on hover */
+    }

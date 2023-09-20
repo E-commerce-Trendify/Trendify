@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Trendify.Interface;
 using Trendify.Models;
+using Trendify.Services;
 
 namespace Trendify.Controllers
 {
@@ -17,6 +18,7 @@ namespace Trendify.Controllers
             _logger = logger;
             _context = context;
         }
+
         [Authorize]
         public async Task<IActionResult> Index()
         {
@@ -28,11 +30,16 @@ namespace Trendify.Controllers
 		{
 			return View();
 		}
-		//public IActionResult Privacy()
-		//{
-		//    return View();
-		//}
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult CartShopping()
+        {
+            return View();
+        }
+     
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

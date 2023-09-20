@@ -11,6 +11,7 @@ using Trendify.Data;
 using Trendify.DTOs;
 using Trendify.Interface;
 using Trendify.Models;
+using Trendify.Services;
 
 namespace Trendify.Controllers
 {
@@ -18,12 +19,15 @@ namespace Trendify.Controllers
     {
         private readonly IProducts _context;
         private readonly ICategory categories;
+		private readonly IShoppingCart _shoppingCartService;
 
-        public ProductsController(IProducts context, ICategory categorie)
+
+		public ProductsController(IProducts context, ICategory categorie, IShoppingCart shoppingCartService)
         {
             categories = categorie;
             _context = context;
-        }
+			_shoppingCartService = shoppingCartService;
+		}
 
         // GET: Products
         public async Task<IActionResult> Index()
@@ -31,9 +35,37 @@ namespace Trendify.Controllers
             var ecommerceDbContext = await _context.GetAllProducts();
             return View(ecommerceDbContext);
         }
+        [Authorize(Roles = "Customer")]
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromCart(int productId)
+        {
+            // Get the current user's ID
+            string userId = User.Identity.Name;
 
-        // GET: Products/Details/5
-        public async Task<IActionResult> Details(int id)
+            // Call your service to add the product to the cart
+            await _shoppingCartService.RemoveFromCart(userId,productId);
+
+            // Redirect back to the product listing page or wherever you want
+            return RedirectToAction("CartShopping", "Home"); // Adjust this to your actual product listing page
+        }
+
+
+        [Authorize(Roles = "Customer")]
+        [HttpPost]
+		public async Task<IActionResult> AddToCart(int productId,int quantity)
+		{
+			// Get the current user's ID
+			string userId = User.Identity.Name;
+
+			// Call your service to add the product to the cart
+			await _shoppingCartService.AddToCart(userId, productId, quantity);
+
+			// Redirect back to the product listing page or wherever you want
+			return RedirectToAction("Index", "Products"); // Adjust this to your actual product listing page
+		}
+
+		// GET: Products/Details/5
+		public async Task<IActionResult> Details(int id)
         {
 
             var product =await _context.GetProductById(id);

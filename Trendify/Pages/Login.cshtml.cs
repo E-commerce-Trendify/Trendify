@@ -33,7 +33,7 @@ namespace Trendify.Views.Pages
                 if (role =="Admin" )
                     return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Products", "Customer");
+            return RedirectToAction("Index", "Home");
 
         }
     }

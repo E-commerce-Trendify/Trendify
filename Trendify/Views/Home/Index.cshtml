@@ -32,22 +32,7 @@
 
 	<div class="blog-section" >
 			<div >
-			@* 	<div >
-					<div class="flex-row justify-content-center" style="margin:10px">
-						@if (User.IsInRole("Editor"))
-						{
-							<h2 class="section-title">Welcome Editor @User.Identity.Name</h2>
-
-						}
-						else
-						{
-							<h2 class="section-title">Welcome Admin @User.Identity.Name</h2>
-
-						}
-
-				</div>
-
-			</div> *@
+		
 
 				<div style="margin-left:40px" class="row">
 
@@ -67,7 +52,6 @@
 							<a asp-controller="Products" asp-action="Index" class="post-thumbnail"><img src="https://cdn.shopify.com/s/files/1/0070/7032/files/trending-products_c8d0d15c-9afc-47e3-9ba2-f7bad0505b9b.png?format=jpg&quality=90&v=1614559651" alt="Image" class="img-fluid" style="height:200px"></a>
 							<div class="post-content-entry text-center">
 								<h3><a asp-controller="Products" asp-action="Index">View all Product</a></h3>
-							
 						</div>
 					</div>
 				</div>
