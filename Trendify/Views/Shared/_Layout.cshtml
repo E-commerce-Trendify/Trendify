@@ -28,8 +28,12 @@
                         @if (User.IsInRole("Customer"))
                         { 
                             <li class="nav-item">
-                                    <a class="nav-link active" asp-area="" asp-page="/Customer/Products">Home</a>
+                                    <a class="nav-link active" asp-area="" asp-page="/Customer/Products">Products</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home Customer</a>
+                            </li>
+
                         }
                         else
                         {
@@ -86,6 +90,14 @@
                             <span class="nav-link active">Welcome, @User.Identity.Name!</span>
                         </li>
                     }
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="Signup">Sign up</a>
+                        </li>
+                    }
+                  
 
                  
 @*                     @(User.IsInRole("Editor"))
