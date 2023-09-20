@@ -36,7 +36,7 @@ a {
 
 
 
-/*.hero {
+.hero {
     
     padding: calc(4rem - 30px) 0 0rem 0;
 }
@@ -112,7 +112,7 @@ a {
         top: -40px;
     }
 }
-
+/*
 .btn {
     font-weight: 600;
     padding: 12px 30px;
@@ -156,7 +156,7 @@ a {
         }
 
    
-
+    
 .section-title {
     color: #2f2f2f;
 }
@@ -254,7 +254,7 @@ a {
 
         .product-section .product-item:hover:before {
             height: 70%;
-        }
+        }*/
 
 .why-choose-section {
     padding: 7rem 0;
@@ -578,7 +578,7 @@ a {
             background-color: #3b5d50;
         }
 
-*/
+
 
 .blog-section {
     padding: 7rem 0 12rem 0;
