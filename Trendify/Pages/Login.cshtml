@@ -63,86 +63,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-            <div class="container-fluid">
-                <div>
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trendify</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li> 
 
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
-                        </li> 
-                        
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-area="" asp-page="/Customer/Products">Products</a>
-
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home Customer</a>
-                            </li>
-                        }
-
-                       
-                       
-                        
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="UserRoles">UserRoles</a>
-                            </li>
-                        }
-
-                    </ul>
-                </div>
-                <ul class="navbar-nav">
-
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-page="/Register">SignUp</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-page="/Login">Login</a>
-                        </li>
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <span class="nav-link active">Welcome, @User.Identity.Name!</span>
-                        </li>
-                    }
-
-
-                    @*                     @(User.IsInRole("Editor"))
-                    @if (!User.Identity.IsAuthenticated)
-                    *@
-                </ul>
-
-            </div>
-            </div>
-        </nav>
-    </header>
     <div class="container">
 
             @{
@@ -185,15 +106,7 @@
             }
         </script>
     </div>
-    <footer class=" footer ">
-        <div class="container" style="color:gray;">
-            &copy; 2023 - Trendify - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
+ 
 </body>
 
 </html>

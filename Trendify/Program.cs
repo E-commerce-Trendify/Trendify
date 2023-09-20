@@ -16,9 +16,11 @@ namespace Trendify
             string Connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // Add services to the container.
+
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
             builder.Services.AddDbContext<EcommerceDbContext>
                 (option=>option.UseSqlServer(Connection));
+
 
 
             builder.Services.AddIdentity<AuthUser, IdentityRole>(options =>
@@ -32,6 +34,7 @@ namespace Trendify
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.LoginPath = "/Login";
             });
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -43,6 +46,8 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
 
             builder.Services.AddTransient<IProducts, ProductsService>();
             builder.Services.AddTransient<ICategory, CategoryService>();
+            builder.Services.AddTransient<IShoppingCart, ShoppingCartService>();
+
 
             builder.Services.AddAuthentication();
             builder.Services.AddAuthorization();

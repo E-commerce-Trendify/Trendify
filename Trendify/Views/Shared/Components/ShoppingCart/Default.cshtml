@@ -1,0 +1,39 @@
+﻿@model Trendify.Models.ShoppingCart
+<div class="flex-column container" style="padding:15px">
+   
+    <div  class="flex-Row " style="justify-content:space-between">
+    <h3 class="cart-title">Your Shopping Cart</h3>
+    <h1 class="cart-price">Total Price: $@Model.TotalPrice</h1>
+    </div>
+
+<div class="flex-Row" style="flex-wrap:wrap">
+
+    <div class="card" style="width:23rem ;margin:4px">
+                @foreach (var item in Model.Items)
+        {
+          
+                <img src="@item.Product.ImageUrl" alt="Image" class="card-img-top post-thumbnail" style="width:100%;height:300px">
+            <div class="card-body" style="display:flex;flex-direction:column; width:100%;">
+                <div style="align-self:end"><h3 class="btn btn-dark" ,class="card-title" style="border-radius:5%; color:white;">@item.Product.Price</h3></div>
+                <div style=" justify-content:space-between;align-items:center">
+
+                    <h4 class="card-title">@item.Product.Name</h4>
+
+
+                </div>
+                                <!-- Add other properties you want to display here -->
+                                <!-- Example: Display Quantity -->
+                                <p class="product-quantity">Quantity: @item.Quantity</p>
+                                <form asp-controller="Products" asp-action="RemoveFromCart" method="post">
+                                    <input type="hidden" name="productId" value="@item.Product.ProductID" />
+                                    <button type="submit" class="btn btn-danger remove-button">Remove from Cart</button>
+                                </form>
+                            </div>
+                        
+                   
+                }
+            </div>
+       
+    </div>
+</div>
+

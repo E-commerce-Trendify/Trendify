@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,10 +28,11 @@
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.IsInRole("Customer"))
-                        { 
-                            <li class="nav-item">
+                        {
+                           
+                           @*  <li class="nav-item">
                                     <a class="nav-link active" asp-area="" asp-page="/Customer/Products">Products</a>
-                            </li>
+                            </li> *@
                             <li class="nav-item">
                                 <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home Customer</a>
                             </li>
@@ -47,18 +50,19 @@
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                         </li>
-                        @if (User.IsInRole("Admin"))
-                        {
+                       
                             <li class="nav-item">
                                 <a class="nav-link active" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
                             </li>
-                        }
-                        else
+                        
+                       
+                        
+                  @*       else
                         {
                             <li class="nav-item">
                                 <a class="nav-link active" asp-area="" asp-page="/Customer/Products">Products</a>
                             </li>
-                        }
+                        } *@
                   
                 
                         @if (User.IsInRole("Admin"))
@@ -94,10 +98,18 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="Signup">Sign up</a>
+                            <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="Signup">New User</a>
                         </li>
                     }
-                  
+                    @if (User.IsInRole("Customer"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="CartShopping">My Cart</a>
+                        </li>
+                        
+                    }
+
+                   
 
                  
 @*                     @(User.IsInRole("Editor"))
