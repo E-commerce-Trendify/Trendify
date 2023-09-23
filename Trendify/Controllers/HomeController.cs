@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Trendify.Interface;
 using Trendify.Models;
+using Trendify.Models.Entites;
 using Trendify.Services;
 
 namespace Trendify.Controllers
@@ -11,12 +13,15 @@ namespace Trendify.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICategory _context;
+        private readonly IEmail _email;
+        private readonly SignInManager<AuthUser> _signInManager;
 
-
-        public HomeController(ILogger<HomeController> logger,ICategory context)
+        public HomeController(ILogger<HomeController> logger,ICategory context, IEmail email, SignInManager<AuthUser> signInManager)
         {
             _logger = logger;
             _context = context;
+            _email = email;
+            _signInManager = signInManager;
         }
 
         [Authorize]
@@ -69,6 +74,19 @@ namespace Trendify.Controllers
            
             return View();
         }
+        public async Task<IActionResult> SendEmailparches() {
+
+            var user = await _signInManager.UserManager.GetUserAsync(User);
+            var email = user.Email;
+            // Call your service to add the product to the cart
+            
+            await _email.SendEmail(email, "The parches", $"<p>{User.Identity.Name} parches is added</p>");
+            await _email.SendEmail("a.shaheen20001@gmail.com", $"The user {User.Identity.Name}", $"<p> parches is added</p>");
+
+            return RedirectToAction("index","Home");
+        }
+        
+
 
        
     }

@@ -1,0 +1,31 @@
+﻿@page
+@model Trendify.Pages.ContactEmailModel
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Contacts.Name">Name:</label>
+        <input asp-for="Contacts.Name" class="form-control" />
+        <span asp-validation-for="Contacts.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Contacts.Email">Email:</label>
+        <input asp-for="Contacts.Email" class="form-control" />
+        <span asp-validation-for="Contacts.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Contacts.PhoneNumber">Phone Number:</label>
+        <input asp-for="Contacts.PhoneNumber" class="form-control" />
+        <span asp-validation-for="Contacts.PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Contacts.Description">Description:</label>
+        <textarea asp-for="Contacts.Description" class="form-control"></textarea>
+        <span asp-validation-for="Contacts.Description" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div val></div>

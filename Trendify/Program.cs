@@ -47,6 +47,7 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
             builder.Services.AddTransient<IProducts, ProductsService>();
             builder.Services.AddTransient<ICategory, CategoryService>();
             builder.Services.AddTransient<IShoppingCart, ShoppingCartService>();
+            builder.Services.AddScoped<IEmail,EmailService>();
 
 
             builder.Services.AddAuthentication();

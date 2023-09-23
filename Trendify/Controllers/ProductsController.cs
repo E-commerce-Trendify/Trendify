@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using Trendify.Data;
 using Trendify.DTOs;
 using Trendify.Interface;
 using Trendify.Models;
+using Trendify.Models.Entites;
 using Trendify.Services;
 
 namespace Trendify.Controllers
@@ -20,13 +22,19 @@ namespace Trendify.Controllers
         private readonly IProducts _context;
         private readonly ICategory categories;
 		private readonly IShoppingCart _shoppingCartService;
+        private readonly IEmail _email;
+        private SignInManager<AuthUser> _signInManager;
 
 
-		public ProductsController(IProducts context, ICategory categorie, IShoppingCart shoppingCartService)
+
+
+        public ProductsController(IProducts context, ICategory categorie, IShoppingCart shoppingCartService, IEmail email, SignInManager<AuthUser> signInManager)
         {
             categories = categorie;
             _context = context;
 			_shoppingCartService = shoppingCartService;
+            _email = email;
+            _signInManager = signInManager;
 		}
 
         // GET: Products
@@ -54,14 +62,12 @@ namespace Trendify.Controllers
         [HttpPost]
 		public async Task<IActionResult> AddToCart(int productId,int quantity)
 		{
-			// Get the current user's ID
+            // Get the current user's ID
 			string userId = User.Identity.Name;
-
-			// Call your service to add the product to the cart
-			await _shoppingCartService.AddToCart(userId, productId, quantity);
-
-			// Redirect back to the product listing page or wherever you want
-			return RedirectToAction("Index", "Products"); // Adjust this to your actual product listing page
+     
+            await _shoppingCartService.AddToCart(userId, productId, quantity);
+            // Redirect back to the product listing page or wherever you want
+            return RedirectToAction("Index", "Products"); // Adjust this to your actual product listing page
 		}
 
 		// GET: Products/Details/5
