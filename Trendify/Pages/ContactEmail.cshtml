@@ -62,17 +62,11 @@
 
 <body>
 <div class="container">
-<form class="form-container form-inline" method="post">
-        <h3>Contact Us</h3>
-    <div class="form-group">
-        <label asp-for="Contacts.Name">Name:</label>
-        <input asp-for="Contacts.Name" class="form-control" />
-        <span asp-validation-for="Contacts.Name" class="text-danger"></span>
-    </div>
-
-<form method="post">
 
 
+            <form method="post" class="form-container form-inline">
+
+            <h3 style="text-align:center">Contact Us</h3>
     <div class="form-group">
         <label asp-for="Contacts.Subject">Subject:</label>
         <input asp-for="Contacts.Subject" class="form-control" />
