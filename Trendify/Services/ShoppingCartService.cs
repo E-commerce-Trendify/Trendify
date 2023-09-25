@@ -69,6 +69,17 @@ namespace Trendify.Services
 			// Serialize the updated cart and store it in the user's cookie
 			UpdateCartCookie(userId, cart, Get_httpContextAccessor());
 		}
+
+        public int GetTotalItemCount(string userId)
+        {
+            var cart = GetCartForUser(userId);
+            return cart.Items.Count;
+        }
+        public decimal GetTotalPrice(string userId)
+        {
+            var cart = GetCartForUser(userId);
+            return cart.Items.Sum(item => item.Product.Price * item.Quantity);
+        }
         private decimal CalculateTotalPrice(ShoppingCart cart)
         {
             decimal totalPrice = 0;
