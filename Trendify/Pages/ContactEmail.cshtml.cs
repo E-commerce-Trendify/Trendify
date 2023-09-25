@@ -11,8 +11,9 @@ namespace Trendify.Pages
     {
         private readonly IEmail _IEmail;
         private readonly SignInManager<AuthUser> _signInManager;
-        public ContactEmailModel(IEmail IEmail)
+        public ContactEmailModel(IEmail IEmail, SignInManager<AuthUser> signInManager)
         {
+            _signInManager = signInManager;
             _IEmail = IEmail;
         }
 
@@ -30,9 +31,10 @@ namespace Trendify.Pages
                 // Validation failed, return the page with error messages
                 return Page();
             }
-
-         string Email = Contacts.Email;
-            string subject = $"Welcome in board{Contacts.Name}";
+            var user = await _signInManager.UserManager.GetUserAsync(User);
+            var email = user.Email;
+            string Email = email;
+            string subject = $"The user {User.Identity.Name} have problem ${Contacts.Subject}";
             string htmContent = $"<p>{Contacts.Description}</p>";
 
            await _IEmail.SendEmail(Email, subject, htmContent);
@@ -44,16 +46,8 @@ namespace Trendify.Pages
     }
     public class Contact
     {
-        [Required(ErrorMessage = "Name is required.")]
-        public string Name { get; set; }
 
-        [Required(ErrorMessage = "Email is required.")]
-        [EmailAddress(ErrorMessage = "Invalid email format.")]
-        public string Email { get; set; }
-
-        [Required(ErrorMessage = "Phone number is required.")]
-        [Phone(ErrorMessage = "Invalid phone number format.")]
-        public string PhoneNumber { get; set; }
+        public string Subject { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]
         [StringLength(500, ErrorMessage = "Description must be at most 500 characters.")]
