@@ -109,7 +109,7 @@ else
 	</head>
 
 	<body>
-
+		<section style="margin-left:-7.5%; margin-right:-7.5%;margin-bottom:20px; ">
 		<div class="hero">
 			<div class="container">
 				<div class="row justify-content-between">
@@ -132,6 +132,7 @@ else
 				</div>
 			</div>
 		</div>
+		</section>
 		@*<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 	<ol class="carousel-indicators">
 	<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -177,7 +178,7 @@ else
 
 		<!-- End Hero Section -->
 		<!-- Start Product Section -->
-
+		<section style="background-color:#9CB18E; margin-left:-7.5%; margin-right:-7.5%;">
 		<div class="product-section">
 			<div class="container">
 				<div class="row">
@@ -195,9 +196,9 @@ else
 					{
 						<!-- Start Column 2 -->
 						<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" asp-route-id="@category.CategoryID">
-							<a class="product-item" href="cart.html">
-								<img src="images/apple_iphone-12.jpg" class="img-fluid product-thumbnail">
-								<h3 class="product-title">@category.Name</h3>
+							<a class="post-thumbnail" href="cart.html" style="text-decoration: none;">
+								<img class="img-fluid" src="images/apple_iphone-12.jpg" style="border-radius:20px;">
+								<h3>@category.Name</h3>
 								<strong class="product-price"></strong>
 
 							</a>
@@ -227,8 +228,10 @@ else
 				</div>
 			</div>
 		</div>
+		</section>
 		<!-- End Product Section -->
 		<!-- Start Why Choose Us Section -->
+		<section style="margin-left:-7.5%; margin-right:-7.5%;">
 		<div class="why-choose-section">
 			<div class="container">
 				<div class="row justify-content-between">
@@ -281,7 +284,7 @@ else
 					</div>
 
 					<div class="col-lg-5">
-						<div class="img-wrap">
+						<div class="img-wrap" style="margin-top:80px;">
 							<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
@@ -310,8 +313,10 @@ else
 				</div>
 			</div>
 		</div>
+		</section>
 		<!-- End Why Choose Us Section -->
 		<!-- Start We Help Section -->
+		<section style="background-color:#9CB18E; margin-left:-7.5%; margin-right:-7.5%;">
 		<div class="we-help-section">
 			<div class="container">
 				<div class="row justify-content-between">
@@ -334,13 +339,15 @@ else
 				</div>
 			</div>
 		</div>
+		</section>
 		<!-- End We Help Section -->
 		<!-- Start Blog Section -->
+		<section style="margin-left:-7.5%; margin-right:-7.5%;">
 		<div class="blog-section">
 			<div class="container">
 				<div class="row mb-5">
 					<div class="col-md-6">
-						<h2 class="section-title">Recent Blog</h2>
+							<h2 class="section-title">Some products are from different categories</h2>
 					</div>
 					
 				</div>
@@ -349,39 +356,43 @@ else
 
 
 					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-						
 						@if (Model != null && Model.Any())
 						{
-							@foreach (var category in Model)
-							{
-								<div class="post-entry">
-									<div class="post-content-entry">
-										<h3><a href="#">@category.Name</a></h3>
-									</div>
-									@if (category.Products != null && category.Products.Any())
-									{
-										<div>
-											@foreach (var product in category.Products)
-											{
-												
+							<div style="display:flex; justify-content:space-between;">
+								@foreach (var category in Model)
+								{
+										<div style="margin-left:10px; margin-right:10px;">
+									<div class="post-entry">
+										<div class="post-content-entry">
+											<h3><a href="#">@category.Name</a></h3>
+										</div>
+											
+										@if (category.Products != null && category.Products.Any())
+										{
+											<br />
+											
+												@foreach (var product in category.Products.Take(1))
+												{
 													<a class="post-thumbnail" href="@Url.Action("ProductDetail", "Products", new { id = product.ProductID })">
 														<img src="images/apple_iphone-12.jpg" alt="Product Image" class="img-fluid">
 														<h4>@product.Name</h4>
 														<p>@product.Description</p>
 														<p>@product.Price</p>
 													</a>
-												
-											}
-										</div>
-									}
-								</div>
-							}
+												}
+											
+										}
+											</div>
+									</div>
+								}
+							</div>
 						}
 						else
 						{
 							<p>No categories available.</p>
 						}
 					</div>
+					
 					@*
 					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
 				<div class="post-entry">
@@ -411,6 +422,7 @@ else
 				</div>
 			</div>
 		</div>
+		</section>
 		<!-- End Blog Section -->
 		@*
 	<!-- Start Footer Section -->
