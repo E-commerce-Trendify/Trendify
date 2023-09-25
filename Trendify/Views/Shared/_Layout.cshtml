@@ -1,4 +1,11 @@
-﻿
+﻿@using Trendify.Interface;
+@inject IShoppingCart cartService
+
+@{
+
+    decimal totalPrice = cartService.GetTotalPrice(User.Identity.Name);
+    int Count = cartService.GetTotalItemCount(User.Identity.Name);
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,6 +116,14 @@
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="CartShopping">My Cart</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active">@Count</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link active">@totalPrice</a>
+                        </li>
+
                         
                     }
 
