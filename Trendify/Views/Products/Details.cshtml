@@ -4,45 +4,64 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<style>
+    /* Style for the table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Style for table headers */
+    th {
+        background-color: #f2f2f2;
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Style for table cells */
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Style for the buttons */
+    .btn {
+        margin-top: 10px;
+       
+    }
+
+    
+</style>
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Details</th>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>@Html.DisplayFor(model => model.Name)</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>@Html.DisplayFor(model => model.Description)</td>
+    </tr>
+    <tr>
+        <td>Price</td>
+        <td>@Html.DisplayFor(model => model.Price)</td>
+    </tr>
+    <tr>
+        <td>Stock Quantity</td>
+        <td>@Html.DisplayFor(model => model.StockQuantity)</td>
+    </tr>
+    <tr>
+        <td>Category</td>
+        <td>@Html.DisplayFor(model => model.Category.CategoryID)</td>
+    </tr>
+</table>
 
 <div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StockQuantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StockQuantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryID)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-dark" asp-action="Edit" asp-route-id="@Model?.ProductID">Edit</a> |
+    <a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
 </div>
