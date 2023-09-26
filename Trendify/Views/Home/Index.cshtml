@@ -178,7 +178,7 @@ else
 
 		<!-- End Hero Section -->
 		<!-- Start Product Section -->
-		<section style="background-color:#9CB18E; margin-left:-7.5%; margin-right:-7.5%;">
+		<section style="background-color:#d8e8e4; margin-left:-7.5%; margin-right:-7.5%;">
 		<div class="product-section">
 			<div class="container">
 				<div class="row">
@@ -199,7 +199,7 @@ else
 						<!-- Start Column 2 -->
 						<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" asp-route-id="@category.CategoryID">
 							<a class="post-thumbnail" href="cart.html" style="text-decoration: none;">
-								<img class="img-fluid" src="images/apple_iphone-12.jpg" style="border-radius:20px;">
+								<img class="img-fluid" src="@category.ImageURL" style="border-radius:20px;">
 								<h3>@category.Name</h3>
 								<strong class="product-price"></strong>
 
@@ -292,10 +292,10 @@ else
 							<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
-										<img class="d-block w-100" src="~/images/apple_iphone-12.jpg" alt="First slide">
+										<img class="d-block w-100" src="~/images/laptopp.png" alt="First slide">
 									</div>
 									<div class="carousel-item">
-										<img class="d-block w-100" src="~/images/laptop.png" alt="Second slide">
+										<img class="d-block w-100" src="~/images/iphone15.png" alt="Second slide">
 									</div>
 									<div class="carousel-item">
 										<img class="d-block w-100" src="~/images/plp-studiopro.png" alt="Third slide">
@@ -320,15 +320,15 @@ else
 		</section>
 		<!-- End Why Choose Us Section -->
 		<!-- Start We Help Section -->
-		<section style="background-color:#9CB18E; margin-left:-7.5%; margin-right:-7.5%;">
+		<section style="background-color:#d8e8e4; margin-left:-7.5%; margin-right:-7.5%;">
 		<div class="we-help-section">
 			<div class="container">
 				<div class="row justify-content-between">
 					<div class="col-lg-7 mb-5 mb-lg-0">
 						<div class="imgs-grid">
-							<div class="grid grid-1"><img src="images/laptop.png" alt="Untree.co"></div>
-							<div class="grid grid-2"><img src="images/apple_iphone-12.jpg" alt="Untree.co"></div>
-							<div class="grid grid-3"><img src="images/plp-studiopro.png" alt="Untree.co"></div>
+							<div class="grid grid-1"><img src="images/laptopp.png" alt="Untree.co"></div>
+							<div class="grid grid-2"><img src="images/plp-studiopro.png" alt="Untree.co"></div>
+							<div class="grid grid-3"><img src="images/laptop.png" alt="Untree.co"></div>
 						</div>
 					</div>
 					<div class="col-lg-5 ps-lg-5">
@@ -350,8 +350,9 @@ else
 		<div class="blog-section">
 			<div class="container">
 				<div class="row mb-5">
-					<div class="col-md-6">
-							<h2 class="section-title">Some products are from different categories</h2>
+					<div>
+							<h2 style="text-align:center;">Some products are from different categories</h2>
+							<br />
 					</div>
 					
 				</div>
@@ -365,7 +366,7 @@ else
 							<div style="display:flex; justify-content:space-between;">
 								@foreach (var category in Model)
 								{
-										<div style="margin-left:10px; margin-right:10px;">
+										<div style="margin-left:10px; margin-right:80px;">
 									<div class="post-entry">
 										<div class="post-content-entry">
 											<h3><a href="#">@category.Name</a></h3>
@@ -377,8 +378,8 @@ else
 											
 												@foreach (var product in category.Products.Take(1))
 												{
-													<a class="post-thumbnail" href="@Url.Action("ProductDetail", "Products", new { id = product.ProductID })">
-														<img src="images/apple_iphone-12.jpg" alt="Product Image" class="img-fluid">
+													<a  href="@Url.Action("ProductDetail", "Products", new { id = product.ProductID })">
+														<img src="@product.ImageUrl" alt="Product Image" class="img-fluid">
 														<h4>@product.Name</h4>
 														<p>@product.Description</p>
 														<p>@product.Price</p>
