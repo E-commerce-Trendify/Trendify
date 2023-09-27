@@ -133,6 +133,16 @@
             font-size: 18px;
             margin-bottom: 1px;
         }
+        /* Add styling for alerts */
+        .alert-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 10px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
 
         /* .space {
             padding-top: 30px;
@@ -187,20 +197,20 @@
 <body>
     <div class="form-container">
         <p class="title">Sign Up</p>
-        <form class="form" method="post">
+        <form class="form" method="post" asp-action="Signup" id="signup">
             
-            <input asp-for="data.Username" type="text" placeholder="Username" class="input">
+            <input asp-for="data.Username" type="text" placeholder="Username" class="input" id="username">
             
             
-            <input asp-for="data.Email" type="text" placeholder="Email" class="input">
+            <input asp-for="data.Email" type="text" placeholder="Email" class="input" id="email">
 
             
-            <input asp-for="data.Password" type="password" placeholder="Password" class="input">
+            <input asp-for="data.Password" type="password" placeholder="Password" class="input" id="password">
 
             
-            <input asp-for="data.PhoneNumber" type="text" placeholder="PhoneNumber" class="input">
+            <input asp-for="data.PhoneNumber" type="text" placeholder="PhoneNumber" class="input" id="phonenumber">
 
-            <button type="submit" class="form-btn">Sign Up</button>
+            <button type="button" class="form-btn" onclick="validateForm()">Sign Up</button>
         </form>
         <div asp-validation-summary="All"></div>
         @* <p class="sign-up-label">
@@ -266,6 +276,38 @@
             </form> *@
     
     <div class="space"></div>
-   
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var phonenumber = document.getElementById("phonenumber").value;
+
+            if (username === "") {
+                showAlert("Username is a required field!");
+            } else if (email === "") {
+                showAlert("Email is a required field!");
+            } else if (password === "") {
+                showAlert("Password is a required field!");
+            } else if (phonenumber === "") {
+                showAlert("Phone Number is a required field!");
+            } else {
+                document.getElementById("signup").submit(); // Submit the form if all fields are filled
+            }
+        }
+
+        function showAlert(message) {
+            var alertDiv = document.createElement("div");
+            alertDiv.className = "alert alert-message"; // Use the custom alert-message class
+            alertDiv.innerHTML = message;
+
+            var container = document.getElementById("signup");
+            container.insertBefore(alertDiv, container.firstChild);
+
+            setTimeout(function () {
+                alertDiv.style.display = "none";
+            }, 3000); // Hide the alert after 3 seconds
+        }
+    </script>
 </body>
 </html>

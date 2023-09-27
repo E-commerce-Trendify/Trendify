@@ -182,11 +182,11 @@
 
     <div class="form-container">
         <p class="title">Sign In</p>
-        <form class="form" method="post">
+        <form class="form" method="post" action="/Auth/Authenticate" onsubmit="return validateForm();">
             <label asp-for="UserName"></label>
-            <input asp-for="UserName" type="text" placeholder="Username" class="input">
+            <input asp-for="UserName" type="text" id="username" placeholder="Username" class="input">
             <label asp-for="Password"></label>
-            <input asp-for="Password" type="password" placeholder="Password" class="input">
+            <input asp-for="Password" type="password" id="password" placeholder="Password" class="input">
 
             <button type="submit" class="form-btn">Sign In</button>
         </form>
@@ -260,7 +260,7 @@
                 }
             }
         </script>
-    </div>
+  
  
 </body>
 

@@ -26,7 +26,7 @@ body {
     flex-direction:column;
     width:100%
 }
-.footer {
+/*.footer {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -35,7 +35,7 @@ body {
     border-top: 1px solid #dee2e6;
     text-align: center;
     padding: 15px;
-}
+}*/
 .add-to-cart-button {
     background-color: #007bff; /* Change the background color to your preference */
     color: white; /* Change the text color to your preference */
