@@ -110,6 +110,10 @@
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="Signup">New User</a>
                         </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link active" asp-controller="Orders" asp-action="Index">My Orders</a>
+                        </li>
                     }
                     @if (User.IsInRole("Customer"))
                     {
@@ -123,8 +127,8 @@
 
                             <a class="nav-link active">@totalPrice</a>
                         </li>
+                     
 
-                        
                     }
 
                    

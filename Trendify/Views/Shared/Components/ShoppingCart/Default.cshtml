@@ -1,4 +1,6 @@
-﻿@model Trendify.Models.ShoppingCart
+﻿
+@model Trendify.Models.ShoppingCart
+
 
 <!DOCTYPE html>
 <html>
@@ -66,7 +68,9 @@
 <div class="container">
     <h1 class="cart-title">Your Shopping Cart</h1>
     <h1 class="cart-price">Total Price: $@Model.TotalPrice</h1>
-    <h1><a class="btn btn-outline-dark btn-parches" asp-controller="Home" asp-action="SendEmailparches">Parches</a></h1>
+@*     <h1><a class="btn btn-outline-dark btn-parches" asp-controller="Home" asp-action="SendEmailparches">Parches</a></h1>
+ *@                <h1><a class="btn btn-outline-dark btn-parches" asp-controller="Home" asp-action="GetCartSummaryCart">Summary</a></h1>
+
 
     <table>
         <thead>
@@ -82,13 +86,13 @@
             @foreach (var item in Model.Items)
             {
                 <tr>
-                    <td><img src="@item.Product.ImageUrl" alt="Image" /></td>
-                    <td>@item.Product.Name</td>
-                    <td>$@item.Product.Price</td>
+                    <td><img src="@item.ImageUrl" alt="Image" /></td>
+                    <td>@item.NameProduct</td>
+                    <td>$@item.Price</td>
                     <td>@item.Quantity</td>
                     <td>
                         <form asp-controller="Products" asp-action="RemoveFromCart" method="post">
-                            <input type="hidden" name="productId" value="@item.Product.ProductID" />
+                            <input type="hidden" name="productId" value="@item.ProductID" />
                             <button type="submit" class="btn btn-outline-danger">Remove</button>
                         </form>
                     </td>

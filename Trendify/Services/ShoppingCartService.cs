@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using SendGrid.Helpers.Mail;
 using Trendify.Data;
+using Trendify.DTOs;
 using Trendify.Interface;
 using Trendify.Models;
 using Trendify.Models.Entites;
@@ -38,13 +40,57 @@ namespace Trendify.Services
 			// If the cart cookie doesn't exist, create a new empty cart
 			return new ShoppingCart { Items = new List<CartItem>() };
 		}
+        public SummaryCartDto GetCartSummaryCart(AuthUser user)
+        {
+			ShoppingCart myCart;
+            // Retrieve the cart data from the user's cookie
+            string cartCookieName = $"Cart_{user.UserName}";
+            string cartDataJson = _httpContextAccessor.HttpContext.Request.Cookies[cartCookieName];
 
-		public async Task AddToCart(string userId, int productId, int quantity)
+            // Deserialize the JSON data into a shopping cart object
+            if (!string.IsNullOrEmpty(cartDataJson))
+            {
+                myCart = JsonConvert.DeserializeObject<ShoppingCart>(cartDataJson);
+            }
+			else
+			{
+                myCart = new ShoppingCart { Items = new List<CartItem>() };
+            }
+
+            // If the cart cookie doesn't exist, create a new empty cart
+
+            var Summary = new SummaryCartDto()
+			{
+				cart = myCart,
+				User = user,
+			};
+			return Summary;
+        }
+      
+      
+        public async Task CreatOrder(SummaryCartDto summrayOrder)
+		{
+			var Order = new Order()
+			{
+				ShoppingCarts = summrayOrder.cart.Items,
+				userId=summrayOrder.User.Id,	
+				Quantity = summrayOrder.cart.NumberCart,
+				TotalPrice =summrayOrder.cart.TotalPrice,
+				Date = DateTime.Now,
+			};
+			await _context.Orders.AddAsync(Order);
+			await _context.SaveChangesAsync();
+
+		}
+        
+        
+
+        public async Task AddToCart(string userId, int productId, int quantity)
 		{
 			ShoppingCart cart = GetCartForUser(userId);
             cart.TotalPrice = CalculateTotalPrice(cart);
             var product = await _context.Products.FindAsync(productId);
-			CartItem existingItem = cart.Items.FirstOrDefault(item => item.ProductId == productId);
+			CartItem existingItem = cart.Items.FirstOrDefault(item => item.ProductID == productId);
 			if (existingItem!=null)
 			{
 				existingItem.Quantity += quantity;
@@ -52,12 +98,15 @@ namespace Trendify.Services
 			}
 			else
 			{
-				CartItem newCart = new CartItem()
-				{
-					ProductId = productId,
-					Quantity = quantity,
-					Product = product,
+				CartItem newCart = new CartItem() { 
 				
+					Quantity = quantity,
+					ProductID = productId,
+					Description =product.Description,
+					ImageUrl = product.ImageUrl,
+					NameProduct = product.Name,
+					Price = product.Price,
+					
 				};
 				cart.Items.Add(newCart);
 			}
@@ -78,7 +127,7 @@ namespace Trendify.Services
         public decimal GetTotalPrice(string userId)
         {
             var cart = GetCartForUser(userId);
-            return cart.Items.Sum(item => item.Product.Price * item.Quantity);
+            return cart.Items.Sum(item => item.Price * item.Quantity);
         }
         private decimal CalculateTotalPrice(ShoppingCart cart)
         {
@@ -87,7 +136,7 @@ namespace Trendify.Services
             foreach (var item in cart.Items)
             {
                 // Calculate the price for each item and add it to the total
-                totalPrice += item.Product.Price * item.Quantity;
+                totalPrice += item.Price * item.Quantity;
             }
 
             return totalPrice;
@@ -98,7 +147,7 @@ namespace Trendify.Services
 			ShoppingCart cart = GetCartForUser(userId);
 
 			// Implement logic to remove the product from the cart
-			var exsistItme = cart.Items.FirstOrDefault(item => item.ProductId == productId);
+			var exsistItme = cart.Items.FirstOrDefault(item => item.ProductID == productId);
             if (exsistItme!=null)
 			{
 				cart.Items.Remove(exsistItme);

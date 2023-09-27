@@ -1,4 +1,6 @@
-﻿using Trendify.Models;
+﻿using Trendify.DTOs;
+using Trendify.Models;
+using Trendify.Models.Entites;
 
 namespace Trendify.Interface
 {
@@ -11,6 +13,9 @@ namespace Trendify.Interface
          int GetTotalItemCount(string userId);
 
         decimal GetTotalPrice(string userId);
-        
+		SummaryCartDto GetCartSummaryCart(AuthUser user);
+
+		Task CreatOrder(SummaryCartDto summaryCartDto);
+
     }
 }

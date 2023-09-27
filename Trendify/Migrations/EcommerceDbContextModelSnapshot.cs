@@ -157,6 +157,13 @@ namespace Trendify.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "adminuserid",
+                            RoleId = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -176,6 +183,44 @@ namespace Trendify.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Trendify.Models.CartItem", b =>
+                {
+                    b.Property<int>("CartItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemId"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameProduct")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("Trendify.Models.Category", b =>
@@ -200,7 +245,7 @@ namespace Trendify.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -282,6 +327,52 @@ namespace Trendify.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "adminuserid",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4e582803-bcea-4f9a-b9f7-3965f14b823d",
+                            Email = "admin@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@EXAMPLE.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDY7fObUjYPPltKGyxTkr809N+vCKvEbniu3L+vjO+AHwxXEFq0KPtHA0rYQYxfNSA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6b384898-f331-4e95-b70d-9f0529f9ad32",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
+                });
+
+            modelBuilder.Entity("Trendify.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Trendify.Models.Product", b =>
@@ -316,7 +407,7 @@ namespace Trendify.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
 
                     b.HasData(
                         new
@@ -392,6 +483,24 @@ namespace Trendify.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Trendify.Models.CartItem", b =>
+                {
+                    b.HasOne("Trendify.Models.Order", null)
+                        .WithMany("ShoppingCarts")
+                        .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("Trendify.Models.Order", b =>
+                {
+                    b.HasOne("Trendify.Models.Entites.AuthUser", "user")
+                        .WithMany("Orders")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
             modelBuilder.Entity("Trendify.Models.Product", b =>
                 {
                     b.HasOne("Trendify.Models.Category", "Category")
@@ -406,6 +515,16 @@ namespace Trendify.Migrations
             modelBuilder.Entity("Trendify.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Trendify.Models.Entites.AuthUser", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Trendify.Models.Order", b =>
+                {
+                    b.Navigation("ShoppingCarts");
                 });
 #pragma warning restore 612, 618
         }
