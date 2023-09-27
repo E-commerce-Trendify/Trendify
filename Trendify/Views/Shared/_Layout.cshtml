@@ -23,7 +23,125 @@
  *@</head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+
+         <div class="superNav border-bottom py-2 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
+                <select class="me-3 border-0 bg-light">
+                    <option value="en-us">EN-US</option>
+                </select>
+                <span class="d-none d-lg-inline-block d-md-inline-block d-sm-inline-block d-xs-none me-3"><strong>trendify@gmail.com</strong></span>
+                <span class="me-3"><i class="fa-solid fa-phone me-1 text-warning"></i> <strong>+962-719999881</strong></span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-none d-lg-block d-md-block-d-sm-block d-xs-none text-end">
+                <span class="me-3"><i class="fa-solid fa-truck text-muted me-1"></i><a class="text-muted" href="#">Shipping</a></span>
+                <span class="me-3"><i class="fa-solid fa-file  text-muted me-2"></i><a class="text-muted" href="#">Policy</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>Trendify</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
+            <div class="input-group">
+                <span class="border-warning input-group-text bg-warning text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" class="form-control border-warning" style="color:#7a7a7a">
+                <button class="btn btn-warning text-white">Search</button>
+            </div>
+        </div>
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            
+            <ul class="navbar-nav ms-auto ">
+                @if (User.IsInRole("Customer"))
+                        {
+                <li class="nav-item">
+                            <a class="nav-link mx-2 text-uppercase active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Home Custome</a>
+                </li>
+                        }
+                                    else
+                            {
+
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">Products</a>
+                            </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                            </li>
+
+                             @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                    <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="UserRoles">UserRoles</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/ContactEmail">Contact us</a>
+                        </li>
+                      
+                        </ul>
+                        </div>
+
+                    <ul class="navbar-nav ms-auto ">
+
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/Register">SignUp</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/Login">Login</a>
+                            </li>
+                                }
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link active">Welcome, @User.Identity.Name!</span>
+                            </li>
+                                }
+                                @if (User.IsInRole("Admin"))
+                                {
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="Signup">New User</a>
+                            </li>
+                                }
+                                @if (User.IsInRole("Customer"))
+                                {
+                           @* <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Home" asp-action="CartShopping">My Cart</a>
+                            </li>*@
+                        
+                            <li class="nav-item">
+                            <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Home" asp-action="CartShopping"><i class="fa-solid fa-cart-shopping me-1"></i> @Count</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" href="#"><i class="fa-solid fa-circle-user me-1"></i> @totalPrice</a>
+                            </li>
+                        
+
+
+                                }
+                
+            </ul>
+            
+        </div>
+    
+</nav> 
+@*---------------------------------------------*@
+         @* <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
                 <div>
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trendify</a>
@@ -37,9 +155,7 @@
                         @if (User.IsInRole("Customer"))
                         {
                            
-                           @*  <li class="nav-item">
-                                    <a class="nav-link active" asp-area="" asp-page="/Customer/Products">Products</a>
-                            </li> *@
+                           
                             <li class="nav-item">
                                 <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home Customer</a>
                             </li>
@@ -63,13 +179,7 @@
                             </li>
                         
                        
-                        
-                  @*       else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-area="" asp-page="/Customer/Products">Products</a>
-                            </li>
-                        } *@
+                      
                   
                 
                         @if (User.IsInRole("Admin"))
@@ -130,13 +240,11 @@
                    
 
                  
-@*                     @(User.IsInRole("Editor"))
-                    @if (!User.Identity.IsAuthenticated)
- *@                </ul>
+   </ul>
 
                 </div>
             </div>
-        </nav>
+        </nav>  *@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
