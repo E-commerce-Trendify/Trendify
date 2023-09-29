@@ -139,7 +139,7 @@ namespace Trendify.Controllers
             var options = new SessionCreateOptions
             {
                 SuccessUrl = domain + "Home/ConfirmPayment",
-                CancelUrl = domain + "/",
+                CancelUrl = domain ,
                 LineItems = new List<SessionLineItemOptions>(),
                 Mode = "payment",
             };
