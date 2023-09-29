@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,10 @@ using Trendify.Data;
 using Trendify.DTOs;
 using Trendify.Interface;
 using Trendify.Models;
+using Trendify.Models.Entites;
+using Trendify.Services;
+
+
 
 namespace Trendify.Controllers
 {
@@ -18,22 +23,63 @@ namespace Trendify.Controllers
     {
         private readonly IProducts _context;
         private readonly ICategory categories;
-
-        public ProductsController(IProducts context, ICategory categorie)
+		private readonly IShoppingCart _shoppingCartService;
+        private readonly IEmail _email;
+        private SignInManager<AuthUser> _signInManager;
+        
+        
+        public ProductsController(IProducts context, ICategory categorie, IShoppingCart shoppingCartService, IEmail email, SignInManager<AuthUser> signInManager)
         {
             categories = categorie;
             _context = context;
-        }
+			_shoppingCartService = shoppingCartService;
+            _email = email;
+            _signInManager = signInManager;
+		}
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTerm)
         {
-            var ecommerceDbContext = await _context.GetAllProducts();
+          List<ProductsDtoView> ecommerceDbContext = await _context.GetAllProducts();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.Trim();
+                ecommerceDbContext = ecommerceDbContext
+                    .Where(p => p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
             return View(ecommerceDbContext);
         }
+        [Authorize(Roles = "Customer")]
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromCart(int productId)
+        {
+            // Get the current user's ID
+            string userId = User.Identity.Name;
 
-        // GET: Products/Details/5
-        public async Task<IActionResult> Details(int id)
+            // Call your service to add the product to the cart
+            await _shoppingCartService.RemoveFromCart(userId,productId);
+
+            // Redirect back to the product listing page or wherever you want
+            return RedirectToAction("CartShopping", "Home"); // Adjust this to your actual product listing page
+        }
+
+
+        [Authorize(Roles = "Customer")]
+        [HttpPost]
+		public async Task<IActionResult> AddToCart(int productId,int quantity)
+		{
+            // Get the current user's ID
+			string userId = User.Identity.Name;
+     
+            await _shoppingCartService.AddToCart(userId, productId, quantity);
+            // Redirect back to the product listing page or wherever you want
+            return RedirectToAction("Index", "Products"); // Adjust this to your actual product listing page
+		}
+
+		// GET: Products/Details/5
+		public async Task<IActionResult> Details(int id)
         {
 
             var product =await _context.GetProductById(id);

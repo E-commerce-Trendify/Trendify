@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Trendify.Interface;
+@inject IShoppingCart cartService
+
+@{
+
+    decimal totalPrice = cartService.GetTotalPrice(User.Identity.Name);
+    int Count = cartService.GetTotalItemCount(User.Identity.Name);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,11 +19,276 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Trendify.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 @*     <link rel="stylesheet" href="~/css/slider.css" asp-append-version="true" />
- *@</head>
+ *@
+<style>
+     to create this bootstrap snippet, You can copy and paste the following css code inside a page with bootstrap 4.5.0 included, to get the result that you can see in the preview selection
+
+body{margin-top:20px;}
+.footer_area {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+webkit-box-shadow: 0 8px 48px 8px rgba(47, 91, 234, 0.175);
+    box-shadow: 0 8px 48px 8px rgba(47, 91, 234, 0.175);
+    padding:60px;
+}
+.footer_area .row {
+    margin-left: -25px;
+    margin-right: -25px;
+}
+.footer_area .row .col,
+.footer_area .row .col-1,
+.footer_area .row .col-10,
+.footer_area .row .col-11,
+.footer_area .row .col-12,
+.footer_area .row .col-2,
+.footer_area .row .col-3,
+.footer_area .row .col-4,
+.footer_area .row .col-5,
+.footer_area .row .col-6,
+.footer_area .row .col-7,
+.footer_area .row .col-8,
+.footer_area .row .col-9,
+.footer_area .row .col-auto,
+.footer_area .row .col-lg,
+.footer_area .row .col-lg-1,
+.footer_area .row .col-lg-10,
+.footer_area .row .col-lg-11,
+.footer_area .row .col-lg-12,
+.footer_area .row .col-lg-2,
+.footer_area .row .col-lg-3,
+.footer_area .row .col-lg-4,
+.footer_area .row .col-lg-5,
+.footer_area .row .col-lg-6,
+.footer_area .row .col-lg-7,
+.footer_area .row .col-lg-8,
+.footer_area .row .col-lg-9,
+.footer_area .row .col-lg-auto,
+.footer_area .row .col-md,
+.footer_area .row .col-md-1,
+.footer_area .row .col-md-10,
+.footer_area .row .col-md-11,
+.footer_area .row .col-md-12,
+.footer_area .row .col-md-2,
+.footer_area .row .col-md-3,
+.footer_area .row .col-md-4,
+.footer_area .row .col-md-5,
+.footer_area .row .col-md-6,
+.footer_area .row .col-md-7,
+.footer_area .row .col-md-8,
+.footer_area .row .col-md-9,
+.footer_area .row .col-md-auto,
+.footer_area .row .col-sm,
+.footer_area .row .col-sm-1,
+.footer_area .row .col-sm-10,
+.footer_area .row .col-sm-11,
+.footer_area .row .col-sm-12,
+.footer_area .row .col-sm-2,
+.footer_area .row .col-sm-3,
+.footer_area .row .col-sm-4,
+.footer_area .row .col-sm-5,
+.footer_area .row .col-sm-6,
+.footer_area .row .col-sm-7,
+.footer_area .row .col-sm-8,
+.footer_area .row .col-sm-9,
+.footer_area .row .col-sm-auto,
+.footer_area .row .col-xl,
+.footer_area .row .col-xl-1,
+.footer_area .row .col-xl-10,
+.footer_area .row .col-xl-11,
+.footer_area .row .col-xl-12,
+.footer_area .row .col-xl-2,
+.footer_area .row .col-xl-3,
+.footer_area .row .col-xl-4,
+.footer_area .row .col-xl-5,
+.footer_area .row .col-xl-6,
+.footer_area .row .col-xl-7,
+.footer_area .row .col-xl-8,
+.footer_area .row .col-xl-9,
+.footer_area .row .col-xl-auto {
+    padding-right: 25px;
+    padding-left: 25px;
+}
+
+.single-footer-widget {
+    position: relative;
+    z-index: 1;
+}
+.single-footer-widget .copywrite-text a {
+    color: #747794;
+    font-size: 1rem;
+}
+.single-footer-widget .copywrite-text a:hover,
+.single-footer-widget .copywrite-text a:focus {
+    color: #3f43fd;
+}
+.single-footer-widget .widget-title {
+    margin-bottom: 1.5rem;
+}
+.single-footer-widget .footer_menu li a {
+    color: #747794;
+    margin-bottom: 1rem;
+    display: block;
+    font-size: 1rem;
+}
+.single-footer-widget .footer_menu li a:hover,
+.single-footer-widget .footer_menu li a:focus {
+    color: #3f43fd;
+}
+.single-footer-widget .footer_menu li:last-child a {
+    margin-bottom: 0;
+}
+
+.footer_social_area {
+    position: relative;
+    z-index: 1;
+}
+.footer_social_area a {
+    border-radius: 50%;
+    height: 40px;
+    text-align: center;
+    width: 40px;
+    display: inline-block;
+    background-color: #f5f5ff;
+    line-height: 40px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin-right: 10px;
+}
+.footer_social_area a i {
+    line-height: 36px;
+}
+.footer_social_area a:hover,
+.footer_social_area a:focus {
+    color: black;
+}
+
+-webkit-keyframes bi-cycle {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+keyframes bi-cycle {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 100%;
+    }
+}
+ol li, ul li {
+    list-style: none;
+}
+
+ol, ul {
+    margin: 0;
+    padding: 0;
+}
+</style>
+</head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+
+         
+<nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+    <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-shop me-2"></i> <strong>Trendify</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            
+            <ul class="navbar-nav ms-auto ">
+               
+                        
+                                    
+
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                            </li>
+
+                             @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                    <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="UserRoles">UserRoles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/ContactEmail">Contact us</a>
+                            </li>
+                        }
+                     
+                      
+                        </ul>
+                        </div>
+
+                    <ul class="navbar-nav ms-auto ">
+
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/Register">SignUp</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/Login">Login</a>
+                            </li>
+                                }
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link active">Welcome, @User.Identity.Name!</span>
+                            </li>
+                                }
+                                @if (User.IsInRole("Admin"))
+                                {
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="Signup">New User</a>
+                            </li>
+                                }
+                                @if (User.IsInRole("Customer"))
+                                {
+                           @* <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Home" asp-action="CartShopping">My Cart</a>
+                            </li>*@
+                            <li class="nav-item">
+                            <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Home" asp-action="CartShopping"><i class="fa-solid fa-cart-shopping me-1"></i> @Count</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" href="#"><i class="fa-solid fa-circle-user me-1"></i> @totalPrice</a>
+                            </li>
+                                }
+                
+            </ul>
+            
+        </div>
+    
+</nav> 
+@*---------------------------------------------*@
+         @* <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
                 <div>
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trendify</a>
@@ -25,23 +299,45 @@
                 </button>
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole("Customer"))
+                        {
+                           
+                           
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home Customer</a>
+                            </li>
 
+                        }
+                        else
+                        {
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>                     
-                     
+                        </li>
+                        
+                        }
+                        
+                      
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
-                        </li>
+                       
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                            </li>
+                        
+                       
+                      
+                  
+                
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="UserRoles">UserRoles</a>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-page="/ContactEmail">Contact us</a>
+                        </li>
                       
                         </ul>
                         </div>
@@ -50,10 +346,10 @@
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="Signup">Signup</a>
+                            <a class="nav-link active" asp-area="" asp-page="/Register">SignUp</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="Index">Login</a>
+                            <a class="nav-link active" asp-area="" asp-page="/Login">Login</a>
                         </li>
                     }
                     @if (User.Identity.IsAuthenticated)
@@ -66,26 +362,122 @@
                         </li>
                     }
 
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Auth" asp-action="Signup">New User</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link active" asp-controller="Orders" asp-action="Index">My Orders</a>
+                        </li>
+                    }
+                    @if (User.IsInRole("Customer"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="CartShopping">My Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active">@Count</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link active">@totalPrice</a>
+                        </li>
+                     
+
+                    }
+
+                   
+
                  
-@*                     @(User.IsInRole("Editor"))
-                    @if (!User.Identity.IsAuthenticated)
- *@                </ul>
+   </ul>
 
                 </div>
             </div>
-        </nav>
+        </nav>  *@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+    <footer class="footer_area section_padding_130_0" style="background-color:#d8e8e4;width:100%">
+        <div class="container">
+            <div class="row">
+                <!-- Single Widget-->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-footer-widget section_padding_0_130">
+                        <!-- Footer Logo-->
+                        <div class="footer-logo mb-3"></div>
+                        <h4>Trendify</h4>
+                        <p>Appland is completely creative, lightweight, clean app landing page.</p>
+                        <!-- Copywrite Text-->
+                        <div class="copywrite-text mb-5">
+                            <p class="mb-0">Made with <i class="lni-heart mr-1"></i>by<a class="ml-1">Trendify</a></p>
+                        </div>
+                        <!-- Footer Social Area-->
+                        <div class="footer_social_area"><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pinterest"><i class="fa-solid fa-map-location-dot"></i></a><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Skype"><i class="fa-brands fa-skype"></i></a><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter"><i class="fa-brands fa-twitter"></i></a></div>
+                    </div>
+                </div>
+                <!-- Single Widget-->
+                <div class="col-12 col-sm-6 col-lg">
+                    <div class="single-footer-widget section_padding_0_130">
+                        <!-- Widget Title-->
+                        <h5 class="widget-title">About</h5>
+                        <!-- Footer Menu-->
+                        <div class="footer_menu">
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Corporate Sale</a></li>
+                                <li><a href="#">Terms &amp; Policy</a></li>
+                                <li><a href="#">Community</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Widget-->
+                <div class="col-12 col-sm-6 col-lg">
+                    <div class="single-footer-widget section_padding_0_130">
+                        <!-- Widget Title-->
+                        <h5 class="widget-title">Support</h5>
+                        <!-- Footer Menu-->
+                        <div class="footer_menu">
+                            <ul>
+                                <li><a href="#">Help</a></li>
+                                <li><a href="#">Support</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Term &amp; Conditions</a></li>
+                                <li><a href="#">Help &amp; Support</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Widget-->
+                <div class="col-12 col-sm-6 col-lg">
+                    <div class="single-footer-widget section_padding_0_130">
+                        <!-- Widget Title-->
+                        <h5 class="widget-title">Contact</h5>
+                        <!-- Footer Menu-->
+                        <div class="footer_menu">
+                            <ul>
+                                <li><a href="#">Call Centre</a></li>
+                                <li><a href="#">Email Us</a></li>
+                                <li><a href="#">Term &amp; Conditions</a></li>
+                                <li><a href="#">Help Center</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <footer class=" footer ">
+    @* <footer class=" footer ">
         <div class="container" style="color:gray;">
             &copy; 2023 - Trendify - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

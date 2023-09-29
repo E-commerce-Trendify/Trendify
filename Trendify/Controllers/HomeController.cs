@@ -1,32 +1,66 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Stripe.Checkout;
+using Stripe;
 using System.Diagnostics;
+using Trendify.Data;
+using Trendify.Interface;
 using Trendify.Models;
+using Trendify.Models.Entites;
+using Trendify.Services;
+using Trendify.DTOs;
 
 namespace Trendify.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICategory _context;
+        private readonly IEmail _email;
+        private readonly SignInManager<AuthUser> _signInManager;
+        private readonly IShoppingCart _ShoppingCart;
+        private readonly EcommerceDbContext _dbContext;
+        private readonly IConfiguration _config;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+            ICategory context, IEmail email,
+            SignInManager<AuthUser> signInManager,
+            IShoppingCart shoppingCart,
+            EcommerceDbContext dbContext,IConfiguration config
+            
+            )
+
         {
             _logger = logger;
+            _context = context;
+            _email = email;
+            _signInManager = signInManager;
+            _ShoppingCart = shoppingCart;
+           _dbContext = dbContext;
+            _config = config;
         }
-        [Authorize]
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var allCategoriesandProduct = await _context.GetAllCategories();
+
+            return View(allCategoriesandProduct);
         }
 		public IActionResult HomeAdmin()
 		{
 			return View();
 		}
-		//public IActionResult Privacy()
-		//{
-		//    return View();
-		//}
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult CartShopping()
+        {
+            return View();
+        }
+     
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -56,7 +90,113 @@ namespace Trendify.Controllers
            
             return View();
         }
+        public async Task<IActionResult> SendEmailparches() {
 
+            var user = await _signInManager.UserManager.GetUserAsync(User);
+            var email = user.Email;
+            // Call your service to add the product to the cart
+            
+            await _email.SendEmail(email, "The parches", $"<p>{User.Identity.Name} parches is added</p>");
+            await _email.SendEmail("a.shaheen20001@gmail.com", $"The user {User.Identity.Name}", $"<p> parches is added</p>");
+
+            return RedirectToAction("index","Home");
+        }
+        [Authorize]
+        public async Task<IActionResult> GetCartSummaryCart()
+        {
+            var Orders = new OrderInfo();
+            var user = await _signInManager.UserManager.GetUserAsync(User);
+
+            var SummaryCart = _ShoppingCart.GetCartSummaryCart(user,Orders);
+           return  View(SummaryCart);
+        }
+        [Authorize]
+        public async Task<IActionResult> CreateOrder(OrderInfo info)
+        {
+            var user = await _signInManager.UserManager.GetUserAsync(User);
+
+            var SummaryCart = _ShoppingCart.GetCartSummaryCart(user,info);
        
+            var Orders =  _ShoppingCart.CreatOrder(SummaryCart);
+            return Ok("");
+        }
+        
+        public async Task<IActionResult> OrderInfos()
+        {
+          return  View();
+        }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> ConfirmPayment(OrderInfo info)
+        {
+
+            await CreateOrder(info);
+           await SendEmailparches();
+            await _ShoppingCart.RemoveShoppingCarts(User.Identity.Name);
+
+
+         return View();
+        }
+
+        public async Task<IActionResult> ConfirmPayment()
+        {
+            return View();
+        }
+        [Authorize]
+        public async Task<IActionResult> Payment()
+        {
+            var OrderInfo =new OrderInfo();
+            var user = await _signInManager.UserManager.GetUserAsync(User);
+
+            var SummaryCart = _ShoppingCart.GetCartSummaryCart(user, OrderInfo);
+
+
+            StripeConfiguration.ApiKey = _config.GetSection("SettingStrip:SecretKey").Get<string>();
+
+            var domain = "https://localhost:44361/";
+
+            var options = new SessionCreateOptions
+            {
+                SuccessUrl = domain + "Home/OrderInfos",
+                CancelUrl = domain ,
+                LineItems = new List<SessionLineItemOptions>(),
+                Mode = "payment",
+            };
+
+            foreach (var item in SummaryCart.cart.Items)
+            {
+                var sessionLineItem = new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions()
+                    {
+                        UnitAmount = (long)(item.Price * 100), // 20.50 => 2050
+                        Currency = "usd",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions()
+                        {
+                            Name = item.NameProduct
+                        }
+                    },
+                    Quantity = item.Quantity
+                };
+
+                options.LineItems.Add(sessionLineItem);
+            }
+
+            var service = new SessionService();
+            var session = service.Create(options);
+
+            var sessionId = session.Id;
+
+            TempData["sessionId"] = sessionId;
+
+
+            Response.Headers.Add("Location", session.Url);
+
+            return new StatusCodeResult(303);
+        }
+
+
+
     }
 }

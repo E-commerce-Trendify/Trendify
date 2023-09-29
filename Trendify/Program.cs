@@ -16,9 +16,11 @@ namespace Trendify
             string Connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // Add services to the container.
+
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
             builder.Services.AddDbContext<EcommerceDbContext>
                 (option=>option.UseSqlServer(Connection));
+
 
 
             builder.Services.AddIdentity<AuthUser, IdentityRole>(options =>
@@ -30,8 +32,9 @@ namespace Trendify
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-                options.LoginPath = "/Auth/Index";
+                options.LoginPath = "/Login";
             });
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -43,9 +46,14 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
 
             builder.Services.AddTransient<IProducts, ProductsService>();
             builder.Services.AddTransient<ICategory, CategoryService>();
+            builder.Services.AddTransient<IShoppingCart, ShoppingCartService>();
+            builder.Services.AddScoped<IEmail,EmailService>();
+
 
             builder.Services.AddAuthentication();
             builder.Services.AddAuthorization();
+
+            builder.Services.AddRazorPages();
 
 
             var app = builder.Build();
@@ -65,6 +73,8 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MapRazorPages();    
 
             app.MapControllerRoute(
                 name: "default",

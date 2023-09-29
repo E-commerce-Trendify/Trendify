@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trendify.Data;
 
@@ -11,9 +12,11 @@ using Trendify.Data;
 namespace Trendify.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    partial class EcommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230927230414_drasd")]
+    partial class drasd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -333,15 +336,15 @@ namespace Trendify.Migrations
                         {
                             Id = "adminuserid",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8126e449-05c1-4756-98d0-c35ec091e1bc",
+                            ConcurrencyStamp = "4e582803-bcea-4f9a-b9f7-3965f14b823d",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMHPpLa/Lq5KRWKcvyhN8lG2zGuRohbDEnznM9phVEOG8o6A+qcN+xpkDHp99lgPdQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDY7fObUjYPPltKGyxTkr809N+vCKvEbniu3L+vjO+AHwxXEFq0KPtHA0rYQYxfNSA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3bb31e79-0581-4b59-a757-e48ad2692953",
+                            SecurityStamp = "6b384898-f331-4e95-b70d-9f0529f9ad32",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -355,30 +358,14 @@ namespace Trendify.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Zip")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("userId")
                         .IsRequired()
