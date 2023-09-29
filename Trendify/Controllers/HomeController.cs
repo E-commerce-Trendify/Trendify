@@ -40,7 +40,6 @@ namespace Trendify.Controllers
             _config = config;
         }
 
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             var allCategoriesandProduct = await _context.GetAllCategories();
