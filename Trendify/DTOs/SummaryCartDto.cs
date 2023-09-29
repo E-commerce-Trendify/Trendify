@@ -7,5 +7,6 @@ namespace Trendify.DTOs
     {
         public ShoppingCart cart { get; set; }
         public AuthUser User { get; set; }
+        public OrderInfo OrderInfo { get; set; }
     }
 }

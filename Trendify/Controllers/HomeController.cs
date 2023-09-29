@@ -9,6 +9,7 @@ using Trendify.Interface;
 using Trendify.Models;
 using Trendify.Models.Entites;
 using Trendify.Services;
+using Trendify.DTOs;
 
 namespace Trendify.Controllers
 {
@@ -100,35 +101,55 @@ namespace Trendify.Controllers
 
             return RedirectToAction("index","Home");
         }
+        [Authorize]
         public async Task<IActionResult> GetCartSummaryCart()
         {
+            var Orders = new OrderInfo();
             var user = await _signInManager.UserManager.GetUserAsync(User);
 
-            var SummaryCart = _ShoppingCart.GetCartSummaryCart(user);
+            var SummaryCart = _ShoppingCart.GetCartSummaryCart(user,Orders);
            return  View(SummaryCart);
         }
-        public async Task<IActionResult> CreateOrder()
+        [Authorize]
+        public async Task<IActionResult> CreateOrder(OrderInfo info)
         {
             var user = await _signInManager.UserManager.GetUserAsync(User);
 
-            var SummaryCart = _ShoppingCart.GetCartSummaryCart(user);
+            var SummaryCart = _ShoppingCart.GetCartSummaryCart(user,info);
        
             var Orders =  _ShoppingCart.CreatOrder(SummaryCart);
             return Ok("");
         }
-        public async Task<IActionResult> ConfirmPayment()
+        
+        public async Task<IActionResult> OrderInfos()
         {
-            await CreateOrder();
+          return  View();
+        }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> ConfirmPayment(OrderInfo info)
+        {
+
+            await CreateOrder(info);
            await SendEmailparches();
+            await _ShoppingCart.RemoveShoppingCarts(User.Identity.Name);
+
 
          return View();
         }
 
+        public async Task<IActionResult> ConfirmPayment()
+        {
+            return View();
+        }
+        [Authorize]
         public async Task<IActionResult> Payment()
         {
+            var OrderInfo =new OrderInfo();
             var user = await _signInManager.UserManager.GetUserAsync(User);
 
-            var SummaryCart = _ShoppingCart.GetCartSummaryCart(user);
+            var SummaryCart = _ShoppingCart.GetCartSummaryCart(user, OrderInfo);
 
 
             StripeConfiguration.ApiKey = _config.GetSection("SettingStrip:SecretKey").Get<string>();
@@ -137,7 +158,7 @@ namespace Trendify.Controllers
 
             var options = new SessionCreateOptions
             {
-                SuccessUrl = domain + "Home/ConfirmPayment",
+                SuccessUrl = domain + "Home/OrderInfos",
                 CancelUrl = domain ,
                 LineItems = new List<SessionLineItemOptions>(),
                 Mode = "payment",

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Azure.Storage.Blobs.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
@@ -40,7 +41,7 @@ namespace Trendify.Services
 			// If the cart cookie doesn't exist, create a new empty cart
 			return new ShoppingCart { Items = new List<CartItem>() };
 		}
-        public SummaryCartDto GetCartSummaryCart(AuthUser user)
+        public SummaryCartDto GetCartSummaryCart(AuthUser user,OrderInfo info)
         {
 			ShoppingCart myCart;
             // Retrieve the cart data from the user's cookie
@@ -63,6 +64,7 @@ namespace Trendify.Services
 			{
 				cart = myCart,
 				User = user,
+				OrderInfo = info
 			};
 			return Summary;
         }
@@ -77,6 +79,10 @@ namespace Trendify.Services
 				Quantity = summrayOrder.cart.NumberCart,
 				TotalPrice =summrayOrder.cart.TotalPrice,
 				Date = DateTime.Now,
+				Address = summrayOrder.OrderInfo.Address,
+				City=summrayOrder.OrderInfo.City,
+				State =summrayOrder.OrderInfo.State,
+				Zip = summrayOrder.OrderInfo.Zip
 			};
 			await _context.Orders.AddAsync(Order);
 			await _context.SaveChangesAsync();
@@ -118,8 +124,18 @@ namespace Trendify.Services
 			// Serialize the updated cart and store it in the user's cookie
 			UpdateCartCookie(userId, cart, Get_httpContextAccessor());
 		}
+		public async Task RemoveShoppingCarts(string userId)
+		{
+			ShoppingCart cart = GetCartForUser(userId);
 
-        public int GetTotalItemCount(string userId)
+
+			cart.Items.Clear();
+			UpdateCartCookie(userId, cart, Get_httpContextAccessor());
+
+
+        }
+
+            public int GetTotalItemCount(string userId)
         {
             var cart = GetCartForUser(userId);
             return cart.Items.Count;

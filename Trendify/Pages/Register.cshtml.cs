@@ -24,7 +24,7 @@ namespace Trendify.Views.Pages
         {
         }
         public async Task<IActionResult> OnPostAsync() {
-
+            
             data.Roles = new List<string>() { "Customer" };
             await _services.Register(data, this.ModelState);
 
