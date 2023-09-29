@@ -24,7 +24,6 @@ namespace Trendify.Controllers
             _signInManager = signInManager;
         }
 
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             var allCategoriesandProduct = await _context.GetAllCategories();

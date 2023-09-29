@@ -207,19 +207,14 @@ ol, ul {
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             
             <ul class="navbar-nav ms-auto ">
-                @if (User.IsInRole("Customer"))
-                        {
-                <li class="nav-item">
-                            <a class="nav-link mx-2 text-uppercase active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Home Custome</a>
-                </li>
-                        }
-                                    else
-                            {
+               
+                        
+                                    
 
                             <li class="nav-item">
                                 <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                            }
+                            
                             <li class="nav-item">
                                 <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                             </li>
