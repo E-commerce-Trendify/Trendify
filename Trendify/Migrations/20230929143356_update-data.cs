@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trendify.Migrations
 {
     /// <inheritdoc />
-    public partial class drasd : Migration
+    public partial class updatedata : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -256,7 +256,7 @@ namespace Trendify.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "adminuserid", 0, "4e582803-bcea-4f9a-b9f7-3965f14b823d", "admin@example.com", true, false, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEDY7fObUjYPPltKGyxTkr809N+vCKvEbniu3L+vjO+AHwxXEFq0KPtHA0rYQYxfNSA==", null, false, "6b384898-f331-4e95-b70d-9f0529f9ad32", false, "Admin" });
+                values: new object[] { "adminuserid", 0, "8eda91ab-a8d4-4eb5-bf2f-2379b175f66e", "admin@example.com", true, false, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEEG9NQ0Na3Raz/Z+Hr5st3u1roWrHv6R+BhQxxMXU3CChcj3WjHSygZlF1zxP1W4kA==", null, false, "83e20370-b70a-413a-93ea-a3e7b7b90e95", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",

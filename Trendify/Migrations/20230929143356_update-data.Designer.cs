@@ -12,8 +12,8 @@ using Trendify.Data;
 namespace Trendify.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20230927230414_drasd")]
-    partial class drasd
+    [Migration("20230929143356_update-data")]
+    partial class updatedata
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -336,15 +336,15 @@ namespace Trendify.Migrations
                         {
                             Id = "adminuserid",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4e582803-bcea-4f9a-b9f7-3965f14b823d",
+                            ConcurrencyStamp = "8eda91ab-a8d4-4eb5-bf2f-2379b175f66e",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDY7fObUjYPPltKGyxTkr809N+vCKvEbniu3L+vjO+AHwxXEFq0KPtHA0rYQYxfNSA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEG9NQ0Na3Raz/Z+Hr5st3u1roWrHv6R+BhQxxMXU3CChcj3WjHSygZlF1zxP1W4kA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6b384898-f331-4e95-b70d-9f0529f9ad32",
+                            SecurityStamp = "83e20370-b70a-413a-93ea-a3e7b7b90e95",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
