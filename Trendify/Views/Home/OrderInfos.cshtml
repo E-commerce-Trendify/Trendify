@@ -1,0 +1,52 @@
+﻿@model Trendify.DTOs.OrderInfo
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container" style="padding:15px">
+    <div class="row">
+        <!-- Left side (Image) -->
+        <div class="col-md-6">
+            <!-- Replace the image source with your actual image URL -->
+            <img src="https://i0.wp.com/www.cssscript.com/wp-content/uploads/2018/03/Simple-Location-Picker.png?fit=561%2C421&ssl=1" alt="Image" class="img-fluid">
+        </div>
+
+        <!-- Right side (Form) -->
+        <div class="col-md-6">
+            <form method="post" asp-controller="Home" asp-action="ConfirmPayment" class="form-container form-inline">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="City" class="form-label mt-4"></label>
+                    <input asp-for="@Model.City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Address" class="form-label mt-4"></label>
+                    <input asp-for="@Model.Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="State" class="form-label mt-4"></label>
+                    <input asp-for="@Model.State" class="form-control" />
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Zip" class="form-label mt-4"></label>
+                    <input asp-for="@Model.Zip" class="form-control" />
+                    <span asp-validation-for="Zip" class="text-danger"></span>
+                </div>
+
+                <hr />
+
+                <input type="submit" value="Payment" class="btn btn-outline-success" />
+
+            </form>
+        </div>
+    </div>
+</div>

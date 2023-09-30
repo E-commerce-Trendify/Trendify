@@ -121,6 +121,8 @@
                         <td>
                             <form asp-controller="Products" asp-action="RemoveFromCart" method="post">
                                 <input type="hidden" name="productId" value="@item.ProductID" />
+
+
                                 <button type="submit" class="btn btn-outline-danger">Remove</button>
                             </form>
                         </td>

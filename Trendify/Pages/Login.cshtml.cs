@@ -29,11 +29,19 @@ namespace Trendify.Views.Pages
 
             user = await _services.Authentication(UserName, Password);
 
-            foreach(var role in user.Roles) {
-                if (role =="Admin" )
-                    return RedirectToAction("Index", "Home");
+            if(user!=null)
+            {
+                foreach (var role in user.Roles)
+                {
+                    if (role == "Admin")
+                        return RedirectToAction("Index", "Home");
+                }
+                return RedirectToAction("Index", "Home");
+
             }
-            return RedirectToAction("Index", "Home");
+         
+
+            return RedirectToPage("Login", "Pages");
 
         }
     }

@@ -195,6 +195,13 @@ ol, ul {
 <body>
     <header>
 
+    
+<nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+    <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-shop me-2"></i> <strong>Trendify</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
         <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
             <div class="container">
@@ -228,10 +235,14 @@ ol, ul {
                             <li class="nav-item">
                                     <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="UserRoles">UserRoles</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
+                            </li>
                         }
                         <li class="nav-item">
                                 <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/ContactEmail">About us</a>
                         </li>
+
                       
                         </ul>
                         
@@ -270,16 +281,12 @@ ol, ul {
                            @* <li class="nav-item">
                                 <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Home" asp-action="CartShopping">My Cart</a>
                             </li>*@
-                        
                             <li class="nav-item">
                             <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Home" asp-action="CartShopping"><i class="fa-solid fa-cart-shopping me-1"></i> @Count</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mx-2 text-uppercase" href="#"><i class="fa-solid fa-circle-user me-1"></i> @totalPrice</a>
                             </li>
-                        
-
-
                                 }
                 
             </ul>
@@ -402,7 +409,7 @@ ol, ul {
             @RenderBody()
         </main>
     </div>
-    <footer class="footer_area section_padding_130_0" style="background-color:#d8e8e4;">
+    <footer class="footer_area section_padding_130_0" style="background-color:#d8e8e4;width:100%">
         <div class="container">
             <div class="row">
                 <!-- Single Widget-->

@@ -15,6 +15,8 @@ using Trendify.Models;
 using Trendify.Models.Entites;
 using Trendify.Services;
 
+
+
 namespace Trendify.Controllers
 {
     public class ProductsController : Controller
@@ -24,10 +26,8 @@ namespace Trendify.Controllers
 		private readonly IShoppingCart _shoppingCartService;
         private readonly IEmail _email;
         private SignInManager<AuthUser> _signInManager;
-
-
-
-
+        
+        
         public ProductsController(IProducts context, ICategory categorie, IShoppingCart shoppingCartService, IEmail email, SignInManager<AuthUser> signInManager)
         {
             categories = categorie;
@@ -38,9 +38,17 @@ namespace Trendify.Controllers
 		}
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTerm)
         {
-            var ecommerceDbContext = await _context.GetAllProducts();
+          List<ProductsDtoView> ecommerceDbContext = await _context.GetAllProducts();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.Trim();
+                ecommerceDbContext = ecommerceDbContext
+                    .Where(p => p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
             return View(ecommerceDbContext);
         }
         [Authorize(Roles = "Customer")]

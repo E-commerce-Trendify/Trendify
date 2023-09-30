@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trendify.Data;
 
@@ -11,9 +12,11 @@ using Trendify.Data;
 namespace Trendify.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    partial class EcommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230929192644_updateOrderas")]
+    partial class updateOrderas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -333,19 +336,15 @@ namespace Trendify.Migrations
                         {
                             Id = "adminuserid",
                             AccessFailedCount = 0,
-
-                            ConcurrencyStamp = "8eda91ab-a8d4-4eb5-bf2f-2379b175f66e",
-
+                            ConcurrencyStamp = "8126e449-05c1-4756-98d0-c35ec091e1bc",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-
-                            PasswordHash = "AQAAAAIAAYagAAAAEEG9NQ0Na3Raz/Z+Hr5st3u1roWrHv6R+BhQxxMXU3CChcj3WjHSygZlF1zxP1W4kA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMHPpLa/Lq5KRWKcvyhN8lG2zGuRohbDEnznM9phVEOG8o6A+qcN+xpkDHp99lgPdQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "83e20370-b70a-413a-93ea-a3e7b7b90e95",
-
+                            SecurityStamp = "3bb31e79-0581-4b59-a757-e48ad2692953",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

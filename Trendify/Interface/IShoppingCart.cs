@@ -13,9 +13,11 @@ namespace Trendify.Interface
          int GetTotalItemCount(string userId);
 
         decimal GetTotalPrice(string userId);
-		SummaryCartDto GetCartSummaryCart(AuthUser user);
+		SummaryCartDto GetCartSummaryCart(AuthUser user,OrderInfo info);
 
 		Task CreatOrder(SummaryCartDto summaryCartDto);
+
+	    Task RemoveShoppingCarts(string userId);
 
     }
 }
