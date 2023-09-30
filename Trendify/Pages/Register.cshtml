@@ -201,19 +201,23 @@
         <form class="form" method="post" >
             
             <input asp-for="data.Username" type="text" placeholder="Username" class="input" id="username">
-            
+            <span asp-validation-for="data.Username" class="text-danger"></span>
             
             <input asp-for="data.Email" type="text" placeholder="Email" class="input" id="email">
+            <span asp-validation-for="data.Email" class="text-danger"></span>
 
             
             <input asp-for="data.Password" type="password" placeholder="Password" class="input" id="password">
+            <span asp-validation-for="data.Password" class="text-danger"></span>
 
             
             <input asp-for="data.PhoneNumber" type="text" placeholder="PhoneNumber" class="input" id="phonenumber">
+            <span asp-validation-for="data.PhoneNumber" class="text-danger"></span>
 
-            <button  class="form-btn" onclick="validateForm()">Sign Up</button>
+            <button  class="form-btn">Sign Up</button>
 @*                 <input type="submit"  value="Signup" class="form-btn" />
- *@
+            *@    
+
         </form>
         <div asp-validation-summary="All"></div>
         @* <p class="sign-up-label">
@@ -243,7 +247,7 @@
             </div>
         </div>
     </div>
-   
+
    @*  <div class="space"></div>
 
             <form method="post">

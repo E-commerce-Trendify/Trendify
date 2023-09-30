@@ -48,8 +48,8 @@ namespace Trendify.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Authenticate(LoginData loginData)
         {
-
-            var user = await userService.Authentication(loginData.Username, loginData.Password);
+ 
+            var user = await userService.Authentication(loginData.Username, loginData.Password,this.ModelState);
 
 			if (user == null)
             {

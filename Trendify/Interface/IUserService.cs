@@ -8,7 +8,7 @@ namespace Trendify.Interface
     {
         public Task<UserDto> Register(RegisterUserDto data, ModelStateDictionary modelState);
 
-        public Task<UserDto> Authentication(string username, string password);
+        public Task<UserDto> Authentication(string username, string password, ModelStateDictionary modelState);
 
         public Task<UserDto> GetUser(ClaimsPrincipal principal);
     }
