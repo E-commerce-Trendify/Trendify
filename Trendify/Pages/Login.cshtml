@@ -182,15 +182,17 @@
 
     <div class="form-container">
         <p class="title">Sign In</p>
-        <form class="form" method="post"  onsubmit="return validateForm();">
-            <label asp-for="UserName"></label>
-            <input asp-for="UserName" type="text" id="username" placeholder="Username" class="input">
-            <label asp-for="Password"></label>
-            <input asp-for="Password" type="password" id="password" placeholder="Password" class="input">
+        <form class="form" method="post" >
+            <label asp-for="users.Username"></label>
+            <input asp-for="users.Username" type="text" id="username" placeholder="Username" class="input">
+            <span asp-validation-for="users.Username" class="text-danger"></span>
 
+            <label asp-for="users.Password"></label>
+            <input asp-for="users.Password" type="password" id="password" placeholder="Password" class="input">
+            <span asp-validation-for="users.Password" class="text-danger"></span>
             <button  class="form-btn" >Sign In</button>
         </form>
-        <div asp-validation-summary="All"></div>
+
         @* <p class="sign-up-label">
             Already have an account?<span class="sign-up-link">Log in</span>
         </p> *@
