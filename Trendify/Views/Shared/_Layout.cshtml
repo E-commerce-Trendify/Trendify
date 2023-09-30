@@ -195,18 +195,18 @@ ol, ul {
 <body>
     <header>
 
-         
-<nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>Trendify</strong></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        
-        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-            
-            <ul class="navbar-nav ms-auto ">
+        <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+            <div class="container">
+                <!-- Navbar Brand and Toggle Button -->
+                <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>Trendify</strong></a>
+                <button class="navbar-toggler" type="button" onclick="toggleNavbar()" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar Menu Items -->
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ms-auto">
                
                         
                                     
@@ -230,13 +230,13 @@ ol, ul {
                             </li>
                         }
                         <li class="nav-item">
-                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/ContactEmail">Contact us</a>
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/ContactEmail">About us</a>
                         </li>
                       
                         </ul>
-                        </div>
+                        
 
-                    <ul class="navbar-nav ms-auto ">
+                    <ul class="navbar-nav ms-auto " >
 
                                 @if (!User.Identity.IsAuthenticated)
                                 {
@@ -247,21 +247,24 @@ ol, ul {
                                 <a class="nav-link mx-2 text-uppercase" asp-area="" asp-page="/Login">Login</a>
                             </li>
                                 }
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                            <li class="nav-item">
-                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
-                            </li>
-                            <li class="nav-item">
-                                <span class="nav-link active">Welcome, @User.Identity.Name!</span>
-                            </li>
-                                }
-                                @if (User.IsInRole("Admin"))
-                                {
+                        @if (User.IsInRole("Admin"))
+                        {
                             <li class="nav-item">
                                 <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="Signup">New User</a>
                             </li>
+                        }
+                        
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                            <li class="nav-item">
+                                <span class="nav-link active">Welcome, @User.Identity.Name!</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 text-uppercase" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+                            </li>
+                            
                                 }
+                                
                                 @if (User.IsInRole("Customer"))
                                 {
                            @* <li class="nav-item">
@@ -280,7 +283,7 @@ ol, ul {
                                 }
                 
             </ul>
-            
+                </div>
         </div>
     
 </nav> 
@@ -475,9 +478,28 @@ ol, ul {
             &copy; 2023 - Trendify - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer> *@
+    
+        <script>
+            function toggleNavbar() {
+                var navbarCollapse = document.getElementById("navbarCollapse");
+                var isExpanded = navbarCollapse.classList.contains("show");
+
+                if (isExpanded) {
+                    // If the menu is expanded, collapse it
+                    navbarCollapse.classList.remove("show");
+                } else {
+                    // If the menu is collapsed, expand it
+                    navbarCollapse.classList.add("show");
+                }
+            }
+    
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+   
+    <script src="~/lib/popper.js/dist/umd/popper.min.js"></script> <!-- Required for Bootstrap 4 -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
