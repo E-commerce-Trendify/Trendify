@@ -138,7 +138,14 @@ namespace Trendify.Services
             public int GetTotalItemCount(string userId)
         {
             var cart = GetCartForUser(userId);
-            return cart.Items.Count;
+			////    var Total = cart.Items.Count();
+			var Total = 0;
+            foreach (var item in cart.Items)
+            {
+               // Calculate the price for each item and add it to the total
+                Total += item.Quantity;
+            }
+            return Total;
         }
         public decimal GetTotalPrice(string userId)
         {
