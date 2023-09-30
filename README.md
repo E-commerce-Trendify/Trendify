@@ -99,4 +99,4 @@ To get started with Trendify, follow these steps:
 
 # Entity Relationship Diagram <a name="ERD"></a>
 
-![Alt Text](https://github.com/E-commerce-Trendify/Trendify/blob/Sub-branch/ERD-Trendify.png)
+![Alt Text](https://github.com/E-commerce-Trendify/Trendify/blob/master/ER-%20E-commerce.jpg)
