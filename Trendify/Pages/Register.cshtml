@@ -211,9 +211,9 @@
             
             <input asp-for="data.PhoneNumber" type="text" placeholder="PhoneNumber" class="input" id="phonenumber">
 
-@*             <button type="submit" class="form-btn" onclick="validateForm()">Sign Up</button>
-            *@     <input type="submit"  value="Signup" class="form-btn" />
-
+            <button  class="form-btn" onclick="validateForm()">Sign Up</button>
+@*                 <input type="submit"  value="Signup" class="form-btn" />
+ *@
         </form>
         <div asp-validation-summary="All"></div>
         @* <p class="sign-up-label">
@@ -247,7 +247,7 @@
    @*  <div class="space"></div>
 
             <form method="post">
-            <div style="color: black;" id="signupForm">
+            <div style="color: black;" id="signupForm" >
                     <h3>Sign Up</h3>
                 
                 <div class="form-group">
