@@ -2,7 +2,7 @@
 
 Welcome to Trendify, your one-stop destination for online shopping. Trendify is an e-commerce web application designed to provide a seamless shopping experience for customers. With a wide range of products and user-friendly features, Trendify makes shopping enjoyable and convenient.
 
-live Demo : https://trendify20230916221637.azurewebsites.net/
+live Demo : [https://trendify20230916221637.azurewebsites.net/](https://trendify20231001174654.azurewebsites.net)
 
 # Table of Contents <a name="TABLE"></a>
 
