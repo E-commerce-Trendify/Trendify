@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trendify.Migrations
 {
     /// <inheritdoc />
-    public partial class updatedata : Migration
+    public partial class final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -182,7 +182,11 @@ namespace Trendify.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Zip = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -256,7 +260,7 @@ namespace Trendify.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "adminuserid", 0, "8eda91ab-a8d4-4eb5-bf2f-2379b175f66e", "admin@example.com", true, false, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEEG9NQ0Na3Raz/Z+Hr5st3u1roWrHv6R+BhQxxMXU3CChcj3WjHSygZlF1zxP1W4kA==", null, false, "83e20370-b70a-413a-93ea-a3e7b7b90e95", false, "Admin" });
+                values: new object[] { "adminuserid", 0, "0d56cdab-4efd-4e12-8727-8f10e5381482", "admin@example.com", true, false, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEM9NeYsN1R4P1kuezmqcqt0s14Q+C/kseUPLvY+4cKTkC+QbNia41WBs3nFI7+h1pg==", null, false, "aa9d5635-8538-4e24-8e4f-b7cc2725b052", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",

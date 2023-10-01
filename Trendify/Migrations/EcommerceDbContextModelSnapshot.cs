@@ -333,19 +333,15 @@ namespace Trendify.Migrations
                         {
                             Id = "adminuserid",
                             AccessFailedCount = 0,
-
-                            ConcurrencyStamp = "8eda91ab-a8d4-4eb5-bf2f-2379b175f66e",
-
+                            ConcurrencyStamp = "0d56cdab-4efd-4e12-8727-8f10e5381482",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-
-                            PasswordHash = "AQAAAAIAAYagAAAAEEG9NQ0Na3Raz/Z+Hr5st3u1roWrHv6R+BhQxxMXU3CChcj3WjHSygZlF1zxP1W4kA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM9NeYsN1R4P1kuezmqcqt0s14Q+C/kseUPLvY+4cKTkC+QbNia41WBs3nFI7+h1pg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "83e20370-b70a-413a-93ea-a3e7b7b90e95",
-
+                            SecurityStamp = "aa9d5635-8538-4e24-8e4f-b7cc2725b052",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
