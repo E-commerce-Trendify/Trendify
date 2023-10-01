@@ -8,32 +8,43 @@ namespace Trendify.Views.Pages
     public class LoginModel : PageModel
     {
         private readonly IUserService _services;
-        public UserDto user { get; set; }
         [BindProperty]
-        public string UserName { get; set; }
 
-        [BindProperty]
-        public string Password { get; set; }
-
+        public LoginData users { get; set; }
+    
         public LoginModel(IUserService service)
         {
             _services = service;
-
-
         }
         public void OnGet()
         {
         }
         public async Task<IActionResult> OnPostAsync()
         {
-
-            user = await _services.Authentication(UserName, Password);
-
-            foreach(var role in user.Roles) {
-                if (role =="Admin" )
-                    return RedirectToAction("Index", "Home");
+            if (!ModelState.IsValid)
+            {
+                return Page();
             }
+               var user = await _services.Authentication(users.Username, users.Password, this.ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            if (user != null)
+                {
+                    foreach (var role in user.Roles)
+                    {
+                        if (role == "Admin")
+                            return RedirectToAction("Index", "Home");
+                    }
+
+                }
+
             return RedirectToAction("Index", "Home");
+
+
+
 
         }
     }

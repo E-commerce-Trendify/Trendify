@@ -24,13 +24,20 @@ namespace Trendify.Views.Pages
         {
         }
         public async Task<IActionResult> OnPostAsync() {
-            
+            if (!ModelState.IsValid)
+            {
+                return Page();
+           
+
+            }
             data.Roles = new List<string>() { "Customer" };
             await _services.Register(data, this.ModelState);
+            if (ModelState.IsValid)
+            {
+                return Redirect("Login");
+            }
+            return Page();
 
-
-          return  Redirect("Login");
-                         
         }
     }
 }

@@ -14,74 +14,55 @@
 
 	<body>
 
-		
 
 		<div class="blog-section">
-			<div>
-				@* 	<div >
-			<div class="flex-row justify-content-center" style="margin:10px">
-			@if (User.IsInRole("Editor"))
-			{
-			<h2 class="section-title">Welcome Editor @User.Identity.Name</h2>
+			<div class="row justify-content-center">
 
-			}
-			else
-			{
-			<h2 class="section-title">Welcome Admin @User.Identity.Name</h2>
-
-			}
-
-			</div>
-
-			</div> *@
-
-
-				<div style="margin-left:40px" class="row ">
-
-					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-						<div class="post-entry">
-							<a asp-controller="Categories" asp-action="Index" class="post-thumbnail">
-								<img src="https://lectera.com/info/storage/img/20220309/b87d52d6ede361b47b0c_808xFull.png" alt="Image" class="img-fluid" style="height:200px;width:400px">
-							</a>
-							<div class="post-content-entry text-center">
-								<h3><a asp-controller="Categories" asp-action="Index"> View All category</a></h3>
-
-							</div>
+				<!-- First Row -->
+				<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+					<div class="post-entry">
+						<a asp-controller="Categories" asp-action="Index" class="post-thumbnail">
+							<img src="https://lectera.com/info/storage/img/20220309/b87d52d6ede361b47b0c_808xFull.png" alt="Image" class="img-fluid" style="height:220px;width:400px">
+						</a>
+						<div class="post-content-entry text-center">
+							<h3><a asp-controller="Categories" asp-action="Index">View All Categories</a></h3>
 						</div>
 					</div>
+				</div>
 
-					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-						<div class="post-entry">
-							<a asp-controller="Products" asp-action="Index" class="post-thumbnail"><img src="https://cdn.shopify.com/s/files/1/0070/7032/files/trending-products_c8d0d15c-9afc-47e3-9ba2-f7bad0505b9b.png?format=jpg&quality=90&v=1614559651" alt="Image" class="img-fluid" style="height:200px;width:400px"></a>
-							<div class="post-content-entry text-center">
-								<h3><a asp-controller="Products" asp-action="Index">View all Product</a></h3>
-
-
-							</div>
-
+				<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+					<div class="post-entry">
+						<a asp-controller="Products" asp-action="Index" class="post-thumbnail">
+							<img src="https://cdn.shopify.com/s/files/1/0070/7032/files/trending-products_c8d0d15c-9afc-47e3-9ba2-f7bad0505b9b.png?format=jpg&quality=90&v=1614559651" alt="Image" class="img-fluid" style="height:220px;width:400px">
+						</a>
+						<div class="post-content-entry text-center">
+							<h3><a asp-controller="Products" asp-action="Index">View All Products</a></h3>
 						</div>
 					</div>
-					
-						<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-							<div class="post-entry">
-							<a asp-area="" asp-controller="Auth" asp-action="UserRoles" class="post-thumbnail"><img src="https://static.prod01.ue1.p.pcomm.net/blackbaud/user_content/photos/000/006/6783/a6132a5cd55abcae190bc82567ca8a47-original-users.png" alt="Image" class="img-fluid" style="height:200px;width:400px"></a>
-								<div class="post-content-entry text-center ">
-									<h3><a asp-area="" asp-controller="Auth" asp-action="UserRoles">View all User</a></h3>
-
-								</div>
-							</div>
-						</div>
-					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-						<div class="post-entry">
-							<a asp-area="" asp-controller="Orders" asp-action="Index" class="post-thumbnail"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN6NY9UFcP-6dikKX8YTjblktwCUnoILINhA&usqp=CAU" alt="Image" class="img-fluid" style="height:200px;width:400px"></a>
-							<div class="post-content-entry text-center ">
-								<h3><a asp-area="" asp-controller="Orders" asp-action="Index">View All Orders</a></h3>
-								</div>
+				</div>
+				<div class="row justify-content-center">
+				<!-- Second Row -->
+				<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+					<div class="post-entry">
+						<a asp-area="" asp-controller="Auth" asp-action="UserRoles" class="post-thumbnail">
+								<img src="https://static.prod01.ue1.p.pcomm.net/blackbaud/user_content/photos/000/006/6783/a6132a5cd55abcae190bc82567ca8a47-original-users.png" alt="Image" class="img-fluid" style="height:220px;width:400px">
+						</a>
+						<div class="post-content-entry text-center">
+							<h3><a asp-area="" asp-controller="Auth" asp-action="UserRoles">View All Users</a></h3>
 						</div>
 					</div>
-					
+				</div>
 
-
+				<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+					<div class="post-entry">
+						<a asp-area="" asp-controller="Orders" asp-action="Index" class="post-thumbnail">
+							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN6NY9UFcP-6dikKX8YTjblktwCUnoILINhA&usqp=CAU" alt="Image" class="img-fluid" style="height:220px;width:400px">
+						</a>
+						<div class="post-content-entry text-center">
+							<h3><a asp-area="" asp-controller="Orders" asp-action="Index">View All Orders</a></h3>
+						</div>
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>
@@ -119,7 +100,7 @@ else
 		<section style="margin-left:-7.5%; margin-right:-7.5%;margin-bottom:20px; ">
 		<div class="hero">
 			<div class="container">
-				<div class="row justify-content-between">
+				<div class="row justify-content-between align-items-center">
 					<div class="col-lg-5">
 						<div class="intro-excerpt">
 							<h1>Trendify</h1>
@@ -133,7 +114,7 @@ else
 					</div>
 					<div class="col-lg-7">
 						<div>
-							<img style="width:300;height:200;" src="~/images/banner-home.png" class="img-fluid">
+							<img style="width:300;height:200;" src="~/images/laptopp.png" class="img-fluid">
 						</div>
 					</div>
 				</div>
@@ -205,9 +186,10 @@ else
 						if(count < 3){
 						<!-- Start Column 2 -->
 						<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" asp-route-id="@category.CategoryID">
-							<a class="post-thumbnail" href="cart.html" style="text-decoration: none;">
+									<a href="@Url.Action("Details", "Categories", new { id = category.CategoryID })" 
+									class="post-thumbnail" style="text-decoration: none;">
 								<img class="img-fluid" src="@category.ImageURL" style="border-radius:20px;">
-								<h3>@category.Name</h3>
+								<h3 style="margin-top:20px;margin-left:20px; font-size:20px;">@category.Name</h3>
 								<strong class="product-price"></strong>
 
 							</a>
@@ -370,41 +352,42 @@ else
 					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
 						@if (Model != null && Model.Any())
 						{
-							<div style="display:flex; justify-content:space-between;">
-								@foreach (var category in Model)
-								{
-										<div style="margin-left:10px; margin-right:80px;">
-									<div class="post-entry">
-										<div class="post-content-entry">
-											<h3><a href="#">@category.Name</a></h3>
-										</div>
-											
-										@if (category.Products != null && category.Products.Any())
+							
+									<div style="display:flex; justify-content:space-between;">
+										@foreach (var category in Model.Take(5))
 										{
-											<br />
-											
-												@foreach (var product in category.Products.Take(1))
-												{
-													<a  href="@Url.Action("ProductDetail", "Products", new { id = product.ProductID })">
-														<img src="@product.ImageUrl" alt="Product Image" class="img-fluid">
-														<h4>@product.Name</h4>
-														<p>@product.Description</p>
-														<p>@product.Price</p>
-													</a>
-												}
-											
-										}
+											<div style="margin:30px;">
+												<div class="post-entry">
+													<div class="post-content-entry">
+														<h3><a href="#">@category.Name</a></h3>
+													</div>
+
+													@if (category.Products != null && category.Products.Any())
+													{
+														<br />
+
+														@foreach (var product in category.Products.Take(1))
+														{
+															<a  href="@Url.Action("Details", "Products", new { id = product.ProductID })">
+																<img src="@product.ImageUrl" alt="Product Image"  style="width:200px;height:200px;">
+																<h4 style="margin-top:20px;font-size:15px;">@product.Name</h4>
+																<p>$@product.Price</p>
+															</a>
+															
+														}
+													}
+												</div>
 											</div>
-									</div>
-								}
-							</div>
+										}
+								</div>
 						}
 						else
 						{
 							<p>No categories available.</p>
 						}
+							
 					</div>
-					
+							
 					@*
 					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
 				<div class="post-entry">
