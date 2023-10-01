@@ -2,7 +2,10 @@
 
 Welcome to Trendify, your one-stop destination for online shopping. Trendify is an e-commerce web application designed to provide a seamless shopping experience for customers. With a wide range of products and user-friendly features, Trendify makes shopping enjoyable and convenient.
 
-live Demo : [https://trendify20230916221637.azurewebsites.net/](https://trendify20231001174654.azurewebsites.net)
+## ***important note***
+* There may be some problems when using the ``Chrome browser``
+* It is better to use the ``Edge browser``.
+* live Demo : [https://trendify20230916221637.azurewebsites.net/](https://trendify20231001174654.azurewebsites.net)
 
 # Table of Contents <a name="TABLE"></a>
 
@@ -26,6 +29,10 @@ products and Admin can view all users role and can change ``Editor`` to ``Admin`
 2. Effortlessly handle products, with the ability to create, edit, and remove them.
 3. Seamlessly oversee the entire product inventory.
 4. Access a detailed record of all user purchases.
+5. Admin can see the orders: The admin can access and view the orders placed by users.
+6. Admin can add, remove, and modify products: Admin has control over the product catalog, allowing them to manage the inventory.
+7. Admin can add a new user or modify users: Admin can manage user accounts and roles.
+8. Admin has his own page: Admin has a dedicated dashboard or section for managing the website.
 
 ### Editor:
 
@@ -38,42 +45,40 @@ products and Admin can view all users role and can change ``Editor`` to ``Admin`
 1. User can access to all categories for convenient navigation.
 2. user can detailed product information, including name ,price, and the Description of the product.
 3. User can SignIn/SignOut of the website.
+4. User can add products to the cart: Users can select products and add them to their shopping cart for later purchase.
+5. User can purchase products: Users can complete the purchase process for the items in their cart.
 
 # Website Preview <a name="PREVIEW"></a>
 
 
+1. User Home Page:
 
-1. User Categories Page:
+![](./Asserts/home.png)
 
-![](./Asserts/categories-user.png)
+2. User Categories Page:
 
-2. User Products Page:
+![](./Asserts/Category.png)
 
-![](./Asserts/product-user.png)
+3. User Products Page:
 
-3. Admin Page:
+![](./Asserts/product1.png)
+<hr/>
 
-![](./Asserts/admin-page.png)
+![](./Asserts/product2.png)
 
-4. Admin Categories Page:
+4. Admin Dashboard:
 
-![](./Asserts/categor-admin.png)
+![](./Asserts/admindashboard.png)
 
-5. User Roles Page:
 
-![](./Asserts/UserRoles-admin.png)
+5. Admin Order Page:
 
-6. Editor Page:
+![](./Asserts/adminorderpage.png)
 
-![](./Asserts/editor.png)
+6. User Cart Page:
 
-7. Editor Product Page:
+![](./Asserts/cart.png)
 
-![](./Asserts/prod-editor.png)
-
-8. Editor Categories Page:
-
-![](./Asserts/cat-editor.png)
 
 
 
