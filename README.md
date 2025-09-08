@@ -5,7 +5,7 @@ Welcome to Trendify, your one-stop destination for online shopping. Trendify is 
 ## ***important note***
 * There may be some problems when using the ``Chrome browser``
 * It is better to use the ``Edge browser``.
-* live Demo : [https://trendify20230916221637.azurewebsites.net/](https://trendify20231001174654.azurewebsites.net)
+* live Demo : [https://www.linkedin.com/feed/update/urn:li:activity:7117564346116755458/](https://www.linkedin.com/feed/update/urn:li:activity:7117564346116755458/)
 
 # Table of Contents <a name="TABLE"></a>
 
